@@ -1,0 +1,37 @@
+{
+    "name": "french-press",
+    "version": "0.50.0",
+    "scripts": {
+        "dev": "nodemon --exec babel-node src/index.js",
+        "test": "mocha"
+    },
+    "description": "Utility package to extract and insert social media usernames from urls",
+    "main": "src/index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ELEVATORmedia/french-press.git"
+    },
+    "author": "Jesse Meza <jmeza081@gmail.com>",
+    "license": "UNLICENSED",
+    "private": true,
+    "devDependencies": {
+        "@babel/core": "^7.8.4",
+        "@babel/node": "^7.8.4",
+        "@babel/preset-env": "^7.8.4",
+        "chai": "^4.2.0",
+        "eslint": "^6.8.0",
+        "eslint-config-prettier": "^6.9.0",
+        "eslint-plugin-import": "^2.20.0",
+        "eslint-plugin-react": "^7.18.0",
+        "husky": "^1.2.0",
+        "mocha": "^7.0.1",
+        "nodemon": "^2.0.2",
+        "prettier": "^1.15.3",
+        "pretty-quick": "^1.8.0"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --staged"
+        }
+    }
+}
