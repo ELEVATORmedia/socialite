@@ -82,7 +82,7 @@ const getExtractUsernameTestCase = (site, type, defaultUser = 'myUser') => {
         case STANDARD_TEST_TYPES.WRONG_DOMAIN:
             tests.push({
                 arg: `https://www.totallylegit.com/${defaultUser}`,
-                expected: defaultUser,
+                expected: '',
             });
             break;
         case STANDARD_TEST_TYPES.USERNAME_ONLY:
@@ -94,6 +94,12 @@ const getExtractUsernameTestCase = (site, type, defaultUser = 'myUser') => {
         case STANDARD_TEST_TYPES.SPACES:
             tests.push({
                 arg: `https://w ww. ${site}.com/ ${defaultUser} `,
+                expected: defaultUser,
+            });
+            break;
+        case STANDARD_TEST_TYPES.DUPLICATE_INPUT:
+            tests.push({
+                arg: `${site}.com/@${defaultUser}${site}.com/@${defaultUser}`,
                 expected: defaultUser,
             });
             break;
@@ -148,6 +154,24 @@ const getExtractUsernameTestCase = (site, type, defaultUser = 'myUser') => {
             });
             tests.push({
                 arg: `youtube.com/user/${defaultUser}`,
+                expected: defaultUser,
+            });
+            break;
+        case YOUTUBE_ONLY_TEST_TYPES.STACKED_PATH:
+            tests.push({
+                arg: `youtube.com/user/c/channel/${defaultUser}`,
+                expected: defaultUser,
+            });
+            tests.push({
+                arg: `youtube.com/c/channel/user/${defaultUser}`,
+                expected: defaultUser,
+            });
+            tests.push({
+                arg: `youtube.com/c/user/channel/${defaultUser}`,
+                expected: defaultUser,
+            });
+            tests.push({
+                arg: `youtube.com/channel/user/c/${defaultUser}`,
                 expected: defaultUser,
             });
             break;

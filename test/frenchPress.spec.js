@@ -138,3 +138,29 @@ describe('frenchPress.unbrew(username, type)', () => {
         });
     });
 });
+
+describe('frenchPress.isValidDomain(url)', () => {
+    describe('valid domains', () => {
+        [
+            'facebook.com',
+            'instagram.com',
+            'twitter.com',
+            'soundcloud.com',
+            'youtube.com',
+        ].forEach((domain) => {
+            it(`${domain} should be a valid domain`, () => {
+                assert.equal(frenchPress.isValidDomain(domain), true);
+            });
+        });
+    });
+
+    describe('invalid domains', () => {
+        ['totallyLegit.com', 'google.com', 'bing.com', 'notEvenADomain'].forEach(
+            (domain) => {
+                it(`${domain} should be a valid domain`, () => {
+                    assert.equal(frenchPress.isValidDomain(domain), false);
+                });
+            },
+        );
+    });
+});
