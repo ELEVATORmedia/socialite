@@ -5,6 +5,8 @@
 const STANDARD_SOCIAL_DOMAINS = ['facebook', 'instagram', 'twitter', 'soundcloud'];
 const SUPPORTED_SOCIAL_DOMAINS = ['youtube', ...STANDARD_SOCIAL_DOMAINS];
 
+const SPECIAL_CHARS_TO_REMOVE = '@';
+
 /**
  * Iteratively builds the final regular expression to be used in the replace operation.
  */
@@ -99,8 +101,20 @@ const unbrew = (username, type) => {
  * social media url prefixes and blacklisted characters
  */
 const plunge = (url) => {
+    // if no url is supplied we return an empty string.
+    if (!url) {
+        return '';
+    }
+
+    // Stage 1: Remove whitespace
+    const noWhiteSpaceUrl = url.replace(' ', '');
+
+    // Stage 2: Parse out URL Prefix
     const socialRegex = getRegex();
-    return url.replace(socialRegex, '');
+    const noPrefixURL = noWhiteSpaceUrl.replace(socialRegex, '');
+
+    // Stage 3: Remove Special Characters
+    return noPrefixURL.replace(new RegExp(`${SPECIAL_CHARS_TO_REMOVE}`), '');
 };
 
 exports.plunge = plunge;
