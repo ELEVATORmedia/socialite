@@ -45,7 +45,7 @@ The above call will output `https://www.facebook.com/myUser`;
 
 ## API
 
-### `plunge(<string>)`
+### `plunge(rawInput<string>)`
 
 Extracts a username from a raw input string.
 
@@ -56,9 +56,9 @@ Note that the `plunge()` call must make a few policy decisions about what to do 
 #### Plunge Policies
 
 -   **User Input is empty**: Will output an empty string "".
--   **User Input includes spaces**: Will output string with spaces replaced by "" (empty string). For example, if the user input is "https: www. facebook.com/ my User". The algorithm will output `myUser`.
+-   **User Input includes spaces**: Will output string with spaces replaced by "" (empty string). For example, if the user input is `https: www. facebook.com/ my User`. The algorithm will output `myUser`.
 -   **User Input has special characters in it**: In the event of special characters, only `@` symbols are removed from the user input. Usernames such as `@#myU$er` would result in `#myU$ser`.
--   **User Input has a url with the wrong domain in it**: In the event of a url from the wrong origin, the entire username will be left alone. For example if the user input is "https://google.com/myUser" the entire string will be returned as it cannot be sanitized.
+-   **User Input has a url with the wrong domain in it**: In the event of a url from the wrong origin, the entire username will be left alone. For example if the user input is `https://google.com/myUser` the entire string will be returned as it cannot be sanitized.
 
 ### `unbrew(username<string>, type<string>)`
 
