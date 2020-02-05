@@ -1,4 +1,8 @@
-const { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } = require('./enums');
+const {
+    STANDARD_TEST_TYPES,
+    YOUTUBE_ONLY_TEST_TYPES,
+    SOCIAL_MEDIA_DOMAINS,
+} = require('./enums');
 
 /**
  * Utility function to retrieve a standardized description for tests
@@ -143,5 +147,48 @@ const getExtractUsernameTestCase = (site, type, defaultUser = 'myUser') => {
     return tests;
 };
 
+const getBuildAbsoluteURLTestCase = (username = 'myUser', type) => {
+    const tests = [];
+    const domainPrefix = `https://www.${type.toLowerCase()}.com/`;
+    switch (type) {
+        case SOCIAL_MEDIA_DOMAINS.FACEBOOK:
+        case SOCIAL_MEDIA_DOMAINS.INSTAGRAM:
+        case SOCIAL_MEDIA_DOMAINS.TWITTER:
+        case SOCIAL_MEDIA_DOMAINS.SOUNDCLOUD:
+            tests.push({
+                arg: username,
+                expected: `${domainPrefix}${username}`,
+            });
+            tests.push({
+                arg: '',
+                expected: '',
+            });
+            break;
+        case SOCIAL_MEDIA_DOMAINS.YOUTUBE:
+            tests.push({
+                arg: username,
+                expected: `${domainPrefix}/${username}`,
+            });
+            tests.push({
+                arg: `UH${username}`,
+                expected: `${domainPrefix}c/${username}`,
+            });
+            tests.push({
+                arg: `HC${username}`,
+                expected: `${domainPrefix}c/${username}`,
+            });
+            tests.push({
+                arg: '',
+                expected: '',
+            });
+            break;
+        default:
+            break;
+    }
+
+    return tests;
+};
+
 exports.getDescription = getDescription;
 exports.getExtractUsernameTestCase = getExtractUsernameTestCase;
+exports.getBuildAbsoluteURLTestCase = getBuildAbsoluteURLTestCase;
