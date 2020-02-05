@@ -10,7 +10,7 @@ const SPECIAL_CHARS_TO_REMOVE = '@';
 /**
  * Iteratively builds the final regular expression to be used in the replace operation.
  */
-const getRegex = () => {
+const getSocialPrefixRegex = () => {
     // Matches https:// or http:// if available
     // eslint-disable-next-line no-useless-escape
     const optionalProtocol = `(https?:\/\/)?`;
@@ -96,6 +96,23 @@ const unbrew = (username, type) => {
     }
 };
 
+const getSpecialCharRegex = () => {
+    // Simple for right now
+    return new RegExp(`${SPECIAL_CHARS_TO_REMOVE}+`, 'gmi');
+};
+
+const isValidDomain = (input) => {
+    // eslint-disable-next-line no-useless-escape
+    const standardDomains = `((${SUPPORTED_SOCIAL_DOMAINS.join('|')})\\.com)`;
+    const supportedDomainRegex = new RegExp(standardDomains, 'gmi');
+
+    if (supportedDomainRegex.exec(input) !== null) {
+        return true;
+    }
+
+    return false;
+};
+
 /**
  * Attempts to extract the username from a social media url by parsing out
  * social media url prefixes and blacklisted characters
@@ -106,17 +123,22 @@ const plunge = (url) => {
         return '';
     }
 
+    //TODO: should we check for valid domains? is this possible?
+
     // Stage 1: Remove whitespace
     const noWhiteSpaceUrl = url.replace(' ', '');
 
     // Stage 2: Parse out URL Prefix
-    const socialRegex = getRegex();
+    const socialRegex = getSocialPrefixRegex();
     const noPrefixURL = noWhiteSpaceUrl.replace(socialRegex, '');
 
     // Stage 3: Remove Special Characters
-    return noPrefixURL.replace(new RegExp(`${SPECIAL_CHARS_TO_REMOVE}`), '');
+    const specialCharsRegex = getSpecialCharRegex();
+    return noPrefixURL.replace(specialCharsRegex, '');
 };
 
 exports.plunge = plunge;
-exports.getRegex = getRegex;
+exports.getSocialPrefixRegex = getSocialPrefixRegex;
+exports.getSpecialCharRegex = getSpecialCharRegex;
+exports.isValidDomain = isValidDomain;
 exports.unbrew = unbrew;
