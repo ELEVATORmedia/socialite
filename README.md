@@ -92,6 +92,10 @@ To begin development of this package please make sure you run the following in t
 yarn && yarn dev
 ```
 
+### Recommended Extensions
+
+It is recommended to have the [mocha-sidebar](https://github.com/maty21/mocha-sidebar) extension for vs-code as it allows you to see tests passing in real-time
+
 ## Running Tests
 
 To run tests on this project you can run the following yarn script:
