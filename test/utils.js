@@ -67,6 +67,17 @@ const getExtractUsernameTestCase = (site, type, defaultUser = 'myUser') => {
                 arg: `${site}.com/@${defaultUser}`,
                 expected: defaultUser,
             });
+            /**
+             * https://stackoverflow.com/questions/4364881/inserting-string-at-position-x-of-another-string
+             */
+            tests.push({
+                arg: `${site}.com/@${[
+                    defaultUser.slice(0, 1),
+                    '@',
+                    defaultUser.slice(1),
+                ].join('')}`,
+                expected: defaultUser,
+            });
             break;
         case STANDARD_TEST_TYPES.WRONG_DOMAIN:
             tests.push({
