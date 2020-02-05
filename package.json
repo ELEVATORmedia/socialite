@@ -3,7 +3,7 @@
     "version": "0.50.0",
     "scripts": {
         "dev": "nodemon --exec babel-node src/index.js",
-        "test": "mocha"
+        "test": "mocha --recursive \"test/*.spec.js\""
     },
     "description": "Utility package to extract and insert social media usernames from urls",
     "main": "src/index.js",
