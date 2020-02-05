@@ -1,11 +1,15 @@
-const { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } = require('./enums');
+const {
+    STANDARD_TEST_TYPES,
+    YOUTUBE_ONLY_TEST_TYPES,
+    SOCIAL_MEDIA_DOMAINS,
+} = require('./enums');
 const assert = require('assert');
 const frenchPress = require('../src');
 const testUtils = require('./utils');
 
-describe('frenchPress.extractUsername(url)', () => {
+describe('frenchPress.plunge(url)', () => {
     describe('FACEBOOK urls', () => {
-        Object.keys(STANDARD_TEST_TYPES).map((key) => {
+        Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
                 var testCases = testUtils.getExtractUsernameTestCase(
                     'facebook',
@@ -14,7 +18,7 @@ describe('frenchPress.extractUsername(url)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUsername(test.arg);
+                        const extractedUsername = frenchPress.plunge(test.arg);
 
                         assert.equal(extractedUsername, test.expected);
                     });
@@ -24,7 +28,7 @@ describe('frenchPress.extractUsername(url)', () => {
     });
 
     describe('INSTRAGRAM urls', () => {
-        Object.keys(STANDARD_TEST_TYPES).map((key) => {
+        Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
                 var testCases = testUtils.getExtractUsernameTestCase(
                     'instragram',
@@ -33,7 +37,7 @@ describe('frenchPress.extractUsername(url)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUsername(test.arg);
+                        const extractedUsername = frenchPress.plunge(test.arg);
 
                         assert.equal(extractedUsername, test.expected);
                     });
@@ -43,7 +47,7 @@ describe('frenchPress.extractUsername(url)', () => {
     });
 
     describe('TWITTER urls', () => {
-        Object.keys(STANDARD_TEST_TYPES).map((key) => {
+        Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
                 var testCases = testUtils.getExtractUsernameTestCase(
                     'twitter',
@@ -52,7 +56,7 @@ describe('frenchPress.extractUsername(url)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUsername(test.arg);
+                        const extractedUsername = frenchPress.plunge(test.arg);
 
                         assert.equal(extractedUsername, test.expected);
                     });
@@ -62,7 +66,7 @@ describe('frenchPress.extractUsername(url)', () => {
     });
 
     describe('SOUNDCLOUD urls', () => {
-        Object.keys(STANDARD_TEST_TYPES).map((key) => {
+        Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
                 var testCases = testUtils.getExtractUsernameTestCase(
                     'soundcloud',
@@ -71,7 +75,7 @@ describe('frenchPress.extractUsername(url)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUsername(test.arg);
+                        const extractedUsername = frenchPress.plunge(test.arg);
 
                         assert.equal(extractedUsername, test.expected);
                     });
@@ -81,7 +85,7 @@ describe('frenchPress.extractUsername(url)', () => {
     });
 
     describe('YOUTUBE standard urls ("youtube.com/username")', () => {
-        Object.keys(STANDARD_TEST_TYPES).map((key) => {
+        Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
                 var testCases = testUtils.getExtractUsernameTestCase(
                     'youtube',
@@ -90,7 +94,7 @@ describe('frenchPress.extractUsername(url)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUsername(test.arg);
+                        const extractedUsername = frenchPress.plunge(test.arg);
 
                         assert.equal(extractedUsername, test.expected);
                     });
@@ -100,7 +104,7 @@ describe('frenchPress.extractUsername(url)', () => {
     });
 
     describe('YOUTUBE variant urls ("youtube.com/c/", "youtube.com/channel", "youtube.com/user/)', () => {
-        Object.keys(YOUTUBE_ONLY_TEST_TYPES).map((key) => {
+        Object.keys(YOUTUBE_ONLY_TEST_TYPES).forEach((key) => {
             describe(YOUTUBE_ONLY_TEST_TYPES[key], () => {
                 var testCases = testUtils.getExtractUsernameTestCase(
                     'youtube',
@@ -109,10 +113,26 @@ describe('frenchPress.extractUsername(url)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUsername(test.arg);
+                        const extractedUsername = frenchPress.plunge(test.arg);
 
                         assert.equal(extractedUsername, test.expected);
                     });
+                });
+            });
+        });
+    });
+});
+
+describe('frenchPress.unbrew(username, type)', () => {
+    Object.keys(SOCIAL_MEDIA_DOMAINS).forEach((key) => {
+        describe(`Build ${key} urls`, () => {
+            var testCases = testUtils.getBuildAbsoluteURLTestCase('myUser', key);
+
+            testCases.forEach((test) => {
+                it(testUtils.getDescription(test), () => {
+                    const extractedUsername = frenchPress.unbrew(test.arg);
+
+                    assert.equal(extractedUsername, test.expected);
                 });
             });
         });
