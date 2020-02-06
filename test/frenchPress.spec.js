@@ -1,8 +1,5 @@
-const {
-    STANDARD_TEST_TYPES,
-    YOUTUBE_ONLY_TEST_TYPES,
-    SOCIAL_MEDIA_DOMAINS,
-} = require('./enums');
+const { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } = require('./test-enums');
+const { ALL_SOCIAL_DOMAINS } = require('../src/enums');
 const assert = require('assert');
 const frenchPress = require('../src');
 const testUtils = require('./utils');
@@ -27,11 +24,11 @@ describe('frenchPress.plunge(url)', () => {
         });
     });
 
-    describe('INSTRAGRAM urls', () => {
+    describe('INSTAGRAM urls', () => {
         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
                 var testCases = testUtils.getExtractUsernameTestCase(
-                    'instragram',
+                    'instagram',
                     STANDARD_TEST_TYPES[key],
                 );
 
@@ -124,13 +121,16 @@ describe('frenchPress.plunge(url)', () => {
 });
 
 describe('frenchPress.unbrew(username, type)', () => {
-    Object.keys(SOCIAL_MEDIA_DOMAINS).forEach((key) => {
+    Object.keys(ALL_SOCIAL_DOMAINS).forEach((key) => {
         describe(`Build ${key} urls`, () => {
             var testCases = testUtils.getBuildAbsoluteURLTestCase('myUser', key);
 
             testCases.forEach((test) => {
                 it(testUtils.getDescription(test), () => {
-                    const extractedUsername = frenchPress.unbrew(test.arg);
+                    const extractedUsername = frenchPress.unbrew(
+                        test.arg,
+                        key.toLowerCase(),
+                    );
 
                     assert.equal(extractedUsername, test.expected);
                 });
