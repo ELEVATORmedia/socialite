@@ -1,11 +1,5 @@
-/**
- * Standard Social Domains refer to those that do not require special parsing
- * These urls are typically formatted as https://www.socialMediaSiteDomain.com/username
- */
-const STANDARD_SOCIAL_DOMAINS = ['facebook', 'instagram', 'twitter', 'soundcloud'];
-const SUPPORTED_SOCIAL_DOMAINS = ['youtube', ...STANDARD_SOCIAL_DOMAINS];
-
 const SPECIAL_CHARS_TO_REMOVE = '@';
+const { STANDARD_SOCIAL_DOMAINS, ALL_SOCIAL_DOMAINS } = require('./enums');
 
 /**
  * Iteratively builds the final regular expression to be used in the replace operation.
@@ -19,8 +13,11 @@ const getSocialPrefixRegex = () => {
     const optionalWWW = `(www\\.)?`;
 
     // Matches on a domain containing {socialMediaSite}.com/
+    const domains = Object.values(STANDARD_SOCIAL_DOMAINS).map((value) =>
+        value.toLowerCase(),
+    );
     // eslint-disable-next-line no-useless-escape
-    const standardDomains = `((${STANDARD_SOCIAL_DOMAINS.join('|')})\\.com\/)`;
+    const standardDomains = `((${domains.join('|')})\\.com\/)`;
 
     /*
           Youtube userVariation:
@@ -80,19 +77,21 @@ const unbrew = (username, type) => {
         return '';
     }
 
-    if (!SUPPORTED_SOCIAL_DOMAINS.includes(type)) {
+    if (!Object.keys(ALL_SOCIAL_DOMAINS).includes(type.toUpperCase())) {
         return '';
     }
 
-    switch (type) {
-        case SUPPORTED_SOCIAL_DOMAINS.FACEBOOK:
-        case SUPPORTED_SOCIAL_DOMAINS.INSTAGRAM:
-        case SUPPORTED_SOCIAL_DOMAINS.TWITTER:
-        case SUPPORTED_SOCIAL_DOMAINS.SOUNDCLOUD:
-            return buildStandardURL(username, type);
+    switch (type.toUpperCase()) {
+        case ALL_SOCIAL_DOMAINS.FACEBOOK:
+        case ALL_SOCIAL_DOMAINS.INSTAGRAM:
+        case ALL_SOCIAL_DOMAINS.TWITTER:
+        case ALL_SOCIAL_DOMAINS.SOUNDCLOUD:
+            return buildStandardURL(type, username);
 
-        case SUPPORTED_SOCIAL_DOMAINS.YOUTUBE:
+        case ALL_SOCIAL_DOMAINS.YOUTUBE:
             return buildYoutubeVariantURL(username);
+        default:
+            return 'UNSPPORTED TYPE: ' + type;
     }
 };
 
@@ -103,7 +102,8 @@ const getSpecialCharRegex = () => {
 
 const isValidDomain = (input) => {
     // eslint-disable-next-line no-useless-escape
-    const standardDomains = `((${SUPPORTED_SOCIAL_DOMAINS.join('|')})\\.com)`;
+    const domains = Object.values(ALL_SOCIAL_DOMAINS).map((value) => value.toLowerCase());
+    const standardDomains = `((${domains.join('|')})\\.com)`;
     const supportedDomainRegex = new RegExp(standardDomains, 'gmi');
 
     if (supportedDomainRegex.exec(input) !== null) {
@@ -126,7 +126,7 @@ const plunge = (url) => {
     //TODO: should we check for valid domains? is this possible?
 
     // Stage 1: Remove whitespace
-    const noWhiteSpaceUrl = url.replace(' ', '');
+    const noWhiteSpaceUrl = url.replace(/\s/g, '');
 
     // Stage 2: Parse out URL Prefix
     const socialRegex = getSocialPrefixRegex();
