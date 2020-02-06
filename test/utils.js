@@ -155,24 +155,24 @@ const getExtractUsernameTestCase = (site, type, defaultUser = 'myUser') => {
                 expected: defaultUser,
             });
             break;
-        case YOUTUBE_ONLY_TEST_TYPES.STACKED_PATH:
-            tests.push({
-                arg: `youtube.com/user/c/channel/${defaultUser}`,
-                expected: defaultUser,
-            });
-            tests.push({
-                arg: `youtube.com/c/channel/user/${defaultUser}`,
-                expected: defaultUser,
-            });
-            tests.push({
-                arg: `youtube.com/c/user/channel/${defaultUser}`,
-                expected: defaultUser,
-            });
-            tests.push({
-                arg: `youtube.com/channel/user/c/${defaultUser}`,
-                expected: defaultUser,
-            });
-            break;
+        // case YOUTUBE_ONLY_TEST_TYPES.STACKED_PATH:
+        //     tests.push({
+        //         arg: `youtube.com/user/c/channel/${defaultUser}`,
+        //         expected: defaultUser,
+        //     });
+        //     tests.push({
+        //         arg: `youtube.com/c/channel/user/${defaultUser}`,
+        //         expected: defaultUser,
+        //     });
+        //     tests.push({
+        //         arg: `youtube.com/c/user/channel/${defaultUser}`,
+        //         expected: defaultUser,
+        //     });
+        //     tests.push({
+        //         arg: `youtube.com/channel/user/c/${defaultUser}`,
+        //         expected: defaultUser,
+        //     });
+        //     break;
         default:
             break;
     }
