@@ -2,7 +2,7 @@
     "name": "french-press",
     "version": "0.50.0",
     "scripts": {
-        "dev": "nodemon --exec babel-node src/index.js",
+        "dev": "nodemon --exec babel-node src/client.js",
         "test": "mocha --recursive \"test/*.spec.js\""
     },
     "description": "Utility package to extract and insert social media usernames from urls",
