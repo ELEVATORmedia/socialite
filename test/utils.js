@@ -1,8 +1,6 @@
-const {
-    STANDARD_TEST_TYPES,
-    YOUTUBE_ONLY_TEST_TYPES,
-    SOCIAL_MEDIA_DOMAINS,
-} = require('./enums');
+const { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } = require('./test-enums');
+
+const { ALL_SOCIAL_DOMAINS } = require('../src/enums');
 
 /**
  * Utility function to retrieve a standardized description for tests
@@ -186,10 +184,10 @@ const getBuildAbsoluteURLTestCase = (username = 'myUser', type) => {
     const tests = [];
     const domainPrefix = `https://www.${type.toLowerCase()}.com/`;
     switch (type) {
-        case SOCIAL_MEDIA_DOMAINS.FACEBOOK:
-        case SOCIAL_MEDIA_DOMAINS.INSTAGRAM:
-        case SOCIAL_MEDIA_DOMAINS.TWITTER:
-        case SOCIAL_MEDIA_DOMAINS.SOUNDCLOUD:
+        case ALL_SOCIAL_DOMAINS.FACEBOOK:
+        case ALL_SOCIAL_DOMAINS.INSTAGRAM:
+        case ALL_SOCIAL_DOMAINS.TWITTER:
+        case ALL_SOCIAL_DOMAINS.SOUNDCLOUD:
             tests.push({
                 arg: username,
                 expected: `${domainPrefix}${username}`,
@@ -199,18 +197,18 @@ const getBuildAbsoluteURLTestCase = (username = 'myUser', type) => {
                 expected: '',
             });
             break;
-        case SOCIAL_MEDIA_DOMAINS.YOUTUBE:
+        case ALL_SOCIAL_DOMAINS.YOUTUBE:
             tests.push({
                 arg: username,
-                expected: `${domainPrefix}/${username}`,
+                expected: `${domainPrefix}${username}`,
             });
             tests.push({
                 arg: `UH${username}`,
-                expected: `${domainPrefix}c/${username}`,
+                expected: `${domainPrefix}c/UH${username}`,
             });
             tests.push({
                 arg: `HC${username}`,
-                expected: `${domainPrefix}c/${username}`,
+                expected: `${domainPrefix}c/HC${username}`,
             });
             tests.push({
                 arg: '',
