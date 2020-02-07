@@ -1,5 +1,5 @@
 {
-    "name": "@ELEVATORmedia/french-press",
+    "name": "@elevatormedia/french-press",
     "version": "0.52.1",
     "scripts": {
         "dev": "nodemon --exec babel-node src/client.js",
@@ -26,6 +26,9 @@
         "nyc": "^15.0.0",
         "prettier": "^1.15.3",
         "pretty-quick": "^1.8.0"
+    },
+    "repository": {
+        "url": "git://github.com/elevatormedia/french-press.git"
     },
     "husky": {
         "hooks": {
