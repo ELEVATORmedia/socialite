@@ -3,9 +3,12 @@ const { STANDARD_SOCIAL_DOMAINS, ALL_SOCIAL_DOMAINS } = require('./enums');
 // Matches https:// or http:// if available
 // eslint-disable-next-line no-useless-escape
 const optionalProtocol = `(https?:\/\/)?`;
+// eslint-disable-next-line no-useless-escape
+const nonOptionalProtocol = `(https?:\/\/)`;
 
 // Matches on www. if supplied
 const optionalWWW = `(www\\.)?`;
+const nonOptionalWWW = `(www\\.)`;
 
 // Matches on a domain containing {socialMediaSite}.com/
 // Note that this exclude youtube patterns due to variants in the url pattern.
@@ -31,6 +34,7 @@ const allSupportedDomains = `((${Object.values(ALL_SOCIAL_DOMAINS)
 // eslint-disable-next-line no-useless-escape
 const youtubeSocialPrefix = `((youtube\\.com\/)((c|user|channel)\/)?)`;
 
+// Parse out one ore more instances of special characters
 const specialCharacters = '@+';
 
 /**
@@ -46,5 +50,7 @@ module.exports = {
     standardSocialPrefix,
     youtubeSocialPrefix,
     socialPrefix,
+    nonOptionalWWW,
     allSupportedDomains,
+    nonOptionalProtocol,
 };
