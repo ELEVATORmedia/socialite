@@ -201,11 +201,6 @@ const getBuildAbsoluteURLTestCase = (username = 'myUser', type) => {
                 arg: '',
                 expected: '',
             });
-            //TODO: Remove me
-            tests.push({
-                arg: '',
-                expected: 'fsdfsd',
-            });
             break;
         case ALL_SOCIAL_DOMAINS.YOUTUBE:
             tests.push({
