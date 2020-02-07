@@ -30,6 +30,9 @@
     "repository": {
         "url": "git://github.com/elevatormedia/french-press.git"
     },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/"
+    },
     "husky": {
         "hooks": {
             "pre-commit": "pretty-quick --staged",
