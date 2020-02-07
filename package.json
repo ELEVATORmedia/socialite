@@ -1,17 +1,14 @@
 {
-    "name": "french-press",
+    "name": "@ELEVATORmedia/french-press",
     "version": "0.51.0",
     "scripts": {
         "dev": "nodemon --exec babel-node src/client.js",
         "test": "mocha --recursive \"test/*.spec.js\"",
-        "release": "bump --commit --tag --push"
+        "release": "bump --commit --tag --push",
+        "publish": "yarn release && npm publish"
     },
     "description": "Utility package to extract and insert social media usernames from urls",
     "main": "src/frenchPress.js",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/ELEVATORmedia/french-press.git"
-    },
     "author": "Jesse Meza <jmeza081@gmail.com>",
     "license": "UNLICENSED",
     "private": true,
