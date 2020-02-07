@@ -12,8 +12,6 @@ const getDescription = ({ arg, expected }) => {
 /**
  * Retrieves an array of test cases per the enumeration type specified.
  *
- *
- *
  * @param {*} site e.g., "facebook"
  * @param {*} type  - enumaration of type see STANDARD_TEST_TYPES
  * @param {*} defaultUser  - expected user to use in test case.
@@ -180,6 +178,13 @@ const getExtractUsernameTestCase = (site, type, defaultUser = 'myUser') => {
     return tests;
 };
 
+/**
+ * Retrieves an array of test cases per the enumeration type specified.
+ * These test cases pertain to rebuilding an absolute url path from a username
+ *
+ * @param {*} username e.g., "MyUser"
+ * @param {*} type  - enumaration of type see ALL_SOCIAL_MEDIA
+ */
 const getBuildAbsoluteURLTestCase = (username = 'myUser', type) => {
     const tests = [];
     const domainPrefix = `https://www.${type.toLowerCase()}.com/`;
@@ -195,6 +200,11 @@ const getBuildAbsoluteURLTestCase = (username = 'myUser', type) => {
             tests.push({
                 arg: '',
                 expected: '',
+            });
+            //TODO: Remove me
+            tests.push({
+                arg: '',
+                expected: 'fsdfsd',
             });
             break;
         case ALL_SOCIAL_DOMAINS.YOUTUBE:

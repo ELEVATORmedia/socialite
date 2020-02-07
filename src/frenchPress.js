@@ -5,6 +5,8 @@ const {
     specialCharacters,
     socialPrefix,
     allSupportedDomains,
+    nonOptionalWWW,
+    nonOptionalProtocol,
 } = require('./expressions');
 const validator = require('validator');
 
@@ -45,16 +47,21 @@ const unbrew = (username, type) => {
         return '';
     }
 
+    // Otherwise switch through the requested url type and return the
+    // absolute url
     switch (type.toUpperCase()) {
+        // All of these domain follow the same standard URL pattern
         case ALL_SOCIAL_DOMAINS.FACEBOOK:
         case ALL_SOCIAL_DOMAINS.INSTAGRAM:
         case ALL_SOCIAL_DOMAINS.TWITTER:
         case ALL_SOCIAL_DOMAINS.SOUNDCLOUD:
             return buildStandardURL(type, username);
 
+        // YouTube has variants for their urls and must be interpolated
         case ALL_SOCIAL_DOMAINS.YOUTUBE:
             return buildYoutubeVariantURL(username);
         default:
+            // Signifies that we do not accomodate this type of domain.
             return '';
     }
 };
@@ -81,18 +88,31 @@ const findAndReplace = (expression, targetString, replaceWith = '') => {
 };
 
 /**
+ * Using a rawStr and character delimiter, split the string by the delimeter,
+ * filter out empty slots and return the first instance of the string.
+ */
+const getUnique = (rawStr, delimiter = '<') => {
+    const delimitedValues = rawStr.split(delimiter);
+    const dups = delimitedValues.filter((value) => value !== '');
+
+    return dups[0];
+};
+
+/**
  * Finds instances of url-like prefixes such as 'http' or 'www.' as well as
  * domain paths such as 'youtube.com/c'
  *
  * Notes that this algorithm offers two approaches:
+ *
  * - single operation: Will build a singular regular expression to use in parsing out
  * url-like properties. This operation has a more narrow scope and may be unable to parse out
  * instances such as https://www.youtube.com/userhttps://www.youtube.com/user
+ *
  * - multi-operation: Will build regular expressions in smaller chunks to parse out url-like
  * properties in stages. This operation has a broader scope and can accomodate more
- * use-cases with the trade-off of performance hits
+ * use-cases with the trade-off of potential performance hits.
  */
-const parseOutURLPrefix = (string, singleOperation) => {
+const parseOutURLPrefix = (str, singleOperation) => {
     if (!singleOperation) {
         /**
          * Use parts of regular expressions to parse out username in stages
@@ -101,27 +121,35 @@ const parseOutURLPrefix = (string, singleOperation) => {
          * but requires more operations and possible performance hits
          */
 
-        let compoundedResult = string;
+        let compoundedResult = str;
 
-        // Stage 1: Find & Replace all instances of protocols
-        const protocolRegex = new RegExp(optionalProtocol, 'gmi');
-        compoundedResult = findAndReplace(protocolRegex, compoundedResult);
+        // Stage 1: Find & Replace all instances of protocols with '<' this delimeter
+        // assures that we can later identify duplicate instances of a username later.
+        const protocolRegex = new RegExp(nonOptionalProtocol, 'gi');
+        compoundedResult = findAndReplace(protocolRegex, str, '<');
 
-        // Stage 2: Find & Replace all instances of 'www.'
-        const wwwRegex = new RegExp(optionalWWW, 'gmi');
-        compoundedResult = findAndReplace(wwwRegex, compoundedResult);
+        // // Stage 2: Find & Replace all instances of 'www.'
+        const wwwRegex = new RegExp(nonOptionalWWW, 'gmi');
+        compoundedResult = findAndReplace(wwwRegex, compoundedResult, '<');
 
-        // Stage 3: Find & Replace all instances of domains
+        // // Stage 3: Find & Replace all instances of domains
         const supportedDomainsRegex = new RegExp(socialPrefix, 'gmi');
-        compoundedResult = findAndReplace(supportedDomainsRegex, compoundedResult);
+        compoundedResult = findAndReplace(supportedDomainsRegex, compoundedResult, '<');
 
-        return compoundedResult;
+        // // Stage 4: test for duplicate patterns and return the first unique instance
+        return getUnique(compoundedResult);
     } else {
+        /**
+         * Generates the single regular expression, is more performant but covers less
+         * use-cases
+         */
         const regularExp = new RegExp(
             [optionalProtocol, optionalWWW, socialPrefix].join(''),
             'gmi',
         );
-        return string.replace(regularExp, '');
+        const res = str.replace(regularExp, '<');
+
+        return getUnique(res);
     }
 };
 
