@@ -1,6 +1,6 @@
 {
     "name": "french-press",
-    "version": "0.50.0",
+    "version": "0.51.0",
     "scripts": {
         "dev": "nodemon --exec babel-node src/client.js",
         "test": "mocha --recursive \"test/*.spec.js\"",
