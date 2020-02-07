@@ -11,7 +11,7 @@ Utility package to extract and insert social media usernames from urls.
 ## Purpose
 
 This package is meant to be used as an additional utility package within ELEVATOR's ecosystem regarding
-public-facing profiles. In specific, this package exposes two main utility functions: `plunge` and `unbrew`. These functions are responsible for extracting and inserting social media usernames from raw urls. The API can be found below.
+public-facing profiles. In specific, this package exposes two main utility functions: `plunge` and `unbrew`. These functions are responsible for extracting and inserting social media usernames from raw urls.
 
 ## Basic Usage
 
@@ -48,25 +48,30 @@ The above call will output `https://www.facebook.com/myUser`;
 
 ## Advanced Usage
 
-Its important to note that the `plunge` call can be configured to use two different resolution plans in extracting a username from a url or raw string. The key difference here is configured through the `singleOperation` parameter via the function call. The following is a description of the differences between the two:
+It's important to note that the `plunge` call can be configured to use two different resolution plans in extracting a username from a url or raw string. The key difference here is configured through the `singleOperation` parameter via the function call. The following is a description of the differences between the two:
 
 `plunge(username, singleOperation=false)` (default)
+
 This algorithm will attempt to extract the username from a url by parsing out url-like properties in _stages_. Meaning, that the algorithm will begin by first doing its regular pre-flight checks (non-empty strings, valid domain etc.), and then proceeds as follows:
 
 1. Replace all instances of `http://` or `https://` with `<`. The purpose of this character is serve as a marker for where a replacement happened. Given that the `<` character is not allowed in any urls, we can assume that no username will contain this character.
 2. Replace all instances of `www.` with `<`.
-3. Replaces all instances of `{socialMediaSite}.com/` with `<`. here, `socialMediaSite` can be `facebook`, `instagram`, `twitter`, etc.
+3. Replace all instances of `{socialMediaSite}.com/` with `<`. here, `socialMediaSite` can be `facebook`, `instagram`, `twitter`, etc.
 4. Using the `<` replaced string, split this array by this delimiter, filter out the empty slots and return the first member of this array. This is done to avoid potential duplicate inputs. Using this approach, only the first unique instance is returned.
 
 `plunge(username, singleOperation=true)`
-This algorithm will attempt to extract the username from a url by parsing out url-like properties in a _single replace operation_. Meaning, that we generate 1 regular expression using quantifiers such as `protocol`, `www.`, `socialmediasite` and replace all instances this expression once. We then proceed as follows:
-`1. Using the`<` replaced string, split this array by this delimiter, filter out the empty slots and return the first member of this array. This is done to avoid potential duplicate inputs. Using this approach, only the first unique instance is returned.
+
+This algorithm will attempt to extract the username from a url by parsing out url-like properties in a _single replace operation_. Meaning, that we generate 1 regular expression using quantifiers such as `protocol`, `www.`, `socialmediasite` and replace all instances of this expression once. We then proceed as follows:
+
+1. Using the `<` replaced string, split this array by this delimiter, filter out the empty slots and return the first member of this array. This is done to avoid potential duplicate inputs. Using this approach, only the first unique instance is returned.
 
 ## API
 
-### `plunge(rawInput<string>)`
+### `plunge(rawInput<string>, singleOperation<boolean>)`
 
 Extracts a username from a raw input string.
+
+Here, `singleOperation` defaults to `false`.
 
 It is worth noting that this package intentionally uses cross-browser-friendly regexes in extracting a username. As of this writing, `negative look-behinds` are not supported by most legacy browsers. As such, logical equivalence is achieved by writing a longer regular expression.
 
@@ -83,6 +88,8 @@ Note that the `plunge()` call must make a few policy decisions about what to do 
 
 Returns the absolute URL based on the `username` and `type` property. Here, `type` is a enumeration of pre-defined values marked as follows: `['facebook', 'instagram', 'twitter', 'soundcloud', 'youtube']`. If the user input is empty or malformed, an empty string will be returned.
 
+> In the event this documentation may be outdated, please refer to the ALL_SOCIAL_DOMAINS enumeration found in `src/enums.js`
+
 It is important to note that `youtube` links are an exception in parsing strategy given that their website has several strategies for redirecting a user to a specified user's channel. In specific, they have the following url patterns:
 
 ```
@@ -95,7 +102,7 @@ youtube.com/channel/channel_id
 youtube.com/user/myUser    ->    This is a legacy url and may no longer be supported in the future.
 ```
 
-Given the separate patterns, `french-press` interpolates the user input based on the characters included in the username. In specific, if the username begins with `UC` or `UH`, the string is interpreted as a channel id. Otherwise, the username is interpreted as custom channel name. As such, the following variant mapping is used:
+Given the separate patterns, `french-press` interpolates the user input based on the characters included in the username. In specific, if the username begins with `HC` or `UH`, the string is interpreted as a channel id. Otherwise, the username is interpreted as custom channel name. As such, the following variant mapping is used:
 
 ```
 customUsername => https://www.youtube.com/customUsername
