@@ -4,6 +4,7 @@ Utility package to extract and insert social media usernames from urls.
 
 -   [Purpose](#purpose)
 -   [Basic Usage](#Basic-Usage)
+-   [Advanced Usage](#Advanced-Usage)
 -   [API](#API)
 -   [Development](#Development)
 
@@ -30,6 +31,8 @@ console.log(frenchPress.plunge(rawURL));
 
 The above will output `myUser`;
 
+### Building an absolute URL from a social media username and a `type`
+
 To retrieve the absolute URL from a given username and `type` (e.g., facebook, instagram, twitter), we use the `unbrew` call:
 
 ```js
@@ -42,6 +45,22 @@ console.log(frenchPress.unbrew(rawUsername, type));
 ```
 
 The above call will output `https://www.facebook.com/myUser`;
+
+## Advanced Usage
+
+Its important to note that the `plunge` call can be configured to use two different resolution plans in extracting a username from a url or raw string. The key difference here is configured through the `singleOperation` parameter via the function call. The following is a description of the differences between the two:
+
+`plunge(username, singleOperation=false)` (default)
+This algorithm will attempt to extract the username from a url by parsing out url-like properties in _stages_. Meaning, that the algorithm will begin by first doing its regular pre-flight checks (non-empty strings, valid domain etc.), and then proceeds as follows:
+
+1. Replace all instances of `http://` or `https://` with `<`. The purpose of this character is serve as a marker for where a replacement happened. Given that the `<` character is not allowed in any urls, we can assume that no username will contain this character.
+2. Replace all instances of `www.` with `<`.
+3. Replaces all instances of `{socialMediaSite}.com/` with `<`. here, `socialMediaSite` can be `facebook`, `instagram`, `twitter`, etc.
+4. Using the `<` replaced string, split this array by this delimiter, filter out the empty slots and return the first member of this array. This is done to avoid potential duplicate inputs. Using this approach, only the first unique instance is returned.
+
+`plunge(username, singleOperation=true)`
+This algorithm will attempt to extract the username from a url by parsing out url-like properties in a _single replace operation_. Meaning, that we generate 1 regular expression using quantifiers such as `protocol`, `www.`, `socialmediasite` and replace all instances this expression once. We then proceed as follows:
+`1. Using the`<` replaced string, split this array by this delimiter, filter out the empty slots and return the first member of this array. This is done to avoid potential duplicate inputs. Using this approach, only the first unique instance is returned.
 
 ## API
 
@@ -84,6 +103,10 @@ customUsername => https://www.youtube.com/customUsername
 UH1234234 => https://www.youtube.com/c/UH1234234
 ```
 
+### `isValidDomain(url<string>)`
+
+Returns `true` if the specified domain is within the `ALL_SOCIAL_DOMAINS` enumeration found in `src/enums.js`. Otherwise were return `false`.
+
 ## Development
 
 To begin development of this package please make sure you run the following in the root directory:
@@ -91,6 +114,8 @@ To begin development of this package please make sure you run the following in t
 ```
 yarn && yarn dev
 ```
+
+**NOTE:** This repository uses `husky` as part of its development process via `pre-commit` and `pre-push` hooks. If you try to push code that results in failing unit tests, the push will fail.
 
 ### Recommended Extensions
 
