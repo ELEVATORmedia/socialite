@@ -93,7 +93,10 @@ const findAndReplace = (expression, targetString, replaceWith = '') => {
  */
 const getUnique = (rawStr, delimiter = '<') => {
     const delimitedValues = rawStr.split(delimiter);
+
     const dups = delimitedValues.filter((value) => value !== '');
+
+    if (!dups.length) return '';
 
     return dups[0];
 };
