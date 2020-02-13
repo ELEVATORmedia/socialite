@@ -102,12 +102,12 @@ youtube.com/channel/channel_id
 youtube.com/user/myUser    ->    This is a legacy url and may no longer be supported in the future.
 ```
 
-Given the separate patterns, `french-press` interpolates the user input based on the characters included in the username. In specific, if the username begins with `HC` or `UH`, the string is interpreted as a channel id. Otherwise, the username is interpreted as custom channel name. As such, the following variant mapping is used:
+Given the separate patterns, `french-press` interpolates the user input based on the characters included in the username. In specific, if the username begins with `UC` or `HC`, the string is interpreted as a channel id. Otherwise, the username is interpreted as custom channel name. As such, the following variant mapping is used:
 
 ```
 customUsername => https://www.youtube.com/customUsername
 
-UH1234234 => https://www.youtube.com/c/UH1234234
+UH1234234 => https://www.youtube.com/channel/UH1234234
 ```
 
 ### `isValidDomain(url<string>)`
