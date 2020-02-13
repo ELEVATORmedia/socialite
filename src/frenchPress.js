@@ -25,8 +25,8 @@ const buildStandardURL = (domain, username) => {
  * default to the standard URL pattern
  */
 const buildYoutubeVariantURL = (username) => {
-    if (username.startsWith('UH') || username.startsWith('HC')) {
-        return `https://www.youtube.com/c/${username}`;
+    if (username.startsWith('UC') || username.startsWith('HC')) {
+        return `https://www.youtube.com/channel/${username}`;
     } else {
         return buildStandardURL('youtube', username);
     }
@@ -47,6 +47,9 @@ const unbrew = (username, type) => {
         return '';
     }
 
+    const specialCharsRegex = new RegExp(specialCharacters, 'gmi');
+    const noSpecialChars = username.replace(specialCharsRegex, '');
+
     // Otherwise switch through the requested url type and return the
     // absolute url
     switch (type.toUpperCase()) {
@@ -55,11 +58,11 @@ const unbrew = (username, type) => {
         case ALL_SOCIAL_DOMAINS.INSTAGRAM:
         case ALL_SOCIAL_DOMAINS.TWITTER:
         case ALL_SOCIAL_DOMAINS.SOUNDCLOUD:
-            return buildStandardURL(type, username);
+            return buildStandardURL(type, noSpecialChars);
 
         // YouTube has variants for their urls and must be interpolated
         case ALL_SOCIAL_DOMAINS.YOUTUBE:
-            return buildYoutubeVariantURL(username);
+            return buildYoutubeVariantURL(noSpecialChars);
         default:
             // Signifies that we do not accomodate this type of domain.
             return '';
