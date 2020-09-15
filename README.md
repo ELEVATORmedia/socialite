@@ -93,13 +93,13 @@ Returns the absolute URL based on the `username` and `type` property. Here, `typ
 It is important to note that `youtube` links are an exception in parsing strategy given that their website has several strategies for redirecting a user to a specified user's channel. In specific, they have the following url patterns:
 
 ```
-youtube.com/myUser
+Catch All: youtube.com/myUser -> Can refer to a shortlnk for custom channel names or legacy usernames
 
-youtube.com/c/channel_id
+Custom Channel Name URL: youtube.com/c/channel_id
 
-youtube.com/channel/channel_id
+Standard Channel ID: youtube.com/channel/channel_id
 
-youtube.com/user/myUser    ->    This is a legacy url and may no longer be supported in the future.
+Legacy User Channel ID: youtube.com/user/myUser    ->    This is a legacy url and may no longer be supported in the future.
 ```
 
 Given the separate patterns, `french-press` interpolates the user input based on the characters included in the username. In specific, if the username begins with `UC` or `HC`, the string is interpreted as a channel id. Otherwise, the username is interpreted as custom channel name. As such, the following variant mapping is used:
@@ -109,6 +109,8 @@ customUsername => https://www.youtube.com/customUsername
 
 UH1234234 => https://www.youtube.com/channel/UH1234234
 ```
+
+You can read more about this URL scheme here: [Understanding YouTube Channel IDs](https://support.google.com/youtube/answer/6180214?hl=en&ref_topic=9257109)
 
 ### `isValidDomain(url<string>)`
 
