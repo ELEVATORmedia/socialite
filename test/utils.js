@@ -99,6 +99,12 @@ const getExtractUsernameTestCase = (site, type, defaultUser = 'myUser') => {
                 expected: defaultUser,
             });
             break;
+        case STANDARD_TEST_TYPES.PARTIAL_INPUT:
+            tests.push({
+                arg: `http://${site}.com/`,
+                expected: '',
+            });
+            break;
         case YOUTUBE_ONLY_TEST_TYPES.CHANNEL_FULL:
             tests.push({
                 arg: `https://www.youtube.com/channel/${defaultUser}`,
@@ -201,6 +207,10 @@ const getBuildAbsoluteURLTestCase = (username = 'myUser', type) => {
                 arg: '',
                 expected: '',
             });
+            tests.push({
+                arg: `@${username}`,
+                expected: `${domainPrefix}${username}`,
+            });
             break;
         case ALL_SOCIAL_DOMAINS.YOUTUBE:
             tests.push({
@@ -208,12 +218,20 @@ const getBuildAbsoluteURLTestCase = (username = 'myUser', type) => {
                 expected: `${domainPrefix}${username}`,
             });
             tests.push({
-                arg: `UH${username}`,
-                expected: `${domainPrefix}c/UH${username}`,
+                arg: `UC${username}`,
+                expected: `${domainPrefix}channel/UC${username}`,
             });
             tests.push({
                 arg: `HC${username}`,
-                expected: `${domainPrefix}c/HC${username}`,
+                expected: `${domainPrefix}channel/HC${username}`,
+            });
+            tests.push({
+                arg: `@HC${username}`,
+                expected: `${domainPrefix}channel/HC${username}`,
+            });
+            tests.push({
+                arg: `@UC${username}`,
+                expected: `${domainPrefix}channel/UC${username}`,
             });
             tests.push({
                 arg: '',
