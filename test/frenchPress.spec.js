@@ -17,7 +17,7 @@ describe('frenchPress.plunge(url, singleOperation=false)', () => {
                     it(testUtils.getDescription(test), () => {
                         const extractedUsername = frenchPress.plunge(test.arg);
 
-                        assert.equal(extractedUsername, test.expected);
+                        assert.strictEqual(extractedUsername, test.expected);
                     });
                 });
             });
@@ -36,7 +36,7 @@ describe('frenchPress.plunge(url, singleOperation=false)', () => {
                     it(testUtils.getDescription(test), () => {
                         const extractedUsername = frenchPress.plunge(test.arg);
 
-                        assert.equal(extractedUsername, test.expected);
+                        assert.strictEqual(extractedUsername, test.expected);
                     });
                 });
             });
@@ -55,7 +55,7 @@ describe('frenchPress.plunge(url, singleOperation=false)', () => {
                     it(testUtils.getDescription(test), () => {
                         const extractedUsername = frenchPress.plunge(test.arg);
 
-                        assert.equal(extractedUsername, test.expected);
+                        assert.strictEqual(extractedUsername, test.expected);
                     });
                 });
             });
@@ -74,7 +74,7 @@ describe('frenchPress.plunge(url, singleOperation=false)', () => {
                     it(testUtils.getDescription(test), () => {
                         const extractedUsername = frenchPress.plunge(test.arg);
 
-                        assert.equal(extractedUsername, test.expected);
+                        assert.strictEqual(extractedUsername, test.expected);
                     });
                 });
             });
@@ -93,7 +93,7 @@ describe('frenchPress.plunge(url, singleOperation=false)', () => {
                     it(testUtils.getDescription(test), () => {
                         const extractedUsername = frenchPress.plunge(test.arg);
 
-                        assert.equal(extractedUsername, test.expected);
+                        assert.strictEqual(extractedUsername, test.expected);
                     });
                 });
             });
@@ -112,7 +112,7 @@ describe('frenchPress.plunge(url, singleOperation=false)', () => {
                     it(testUtils.getDescription(test), () => {
                         const extractedUsername = frenchPress.plunge(test.arg);
 
-                        assert.equal(extractedUsername, test.expected);
+                        assert.strictEqual(extractedUsername, test.expected);
                     });
                 });
             });
@@ -133,7 +133,7 @@ describe('frenchPress.plunge(url, singleOperation=true)', () => {
                     it(testUtils.getDescription(test), () => {
                         const extractedUsername = frenchPress.plunge(test.arg, true);
 
-                        assert.equal(extractedUsername, test.expected);
+                        assert.strictEqual(extractedUsername, test.expected);
                     });
                 });
             });
@@ -152,7 +152,7 @@ describe('frenchPress.plunge(url, singleOperation=true)', () => {
                     it(testUtils.getDescription(test), () => {
                         const extractedUsername = frenchPress.plunge(test.arg, true);
 
-                        assert.equal(extractedUsername, test.expected);
+                        assert.strictEqual(extractedUsername, test.expected);
                     });
                 });
             });
@@ -171,7 +171,7 @@ describe('frenchPress.plunge(url, singleOperation=true)', () => {
                     it(testUtils.getDescription(test), () => {
                         const extractedUsername = frenchPress.plunge(test.arg, true);
 
-                        assert.equal(extractedUsername, test.expected);
+                        assert.strictEqual(extractedUsername, test.expected);
                     });
                 });
             });
@@ -190,7 +190,7 @@ describe('frenchPress.plunge(url, singleOperation=true)', () => {
                     it(testUtils.getDescription(test), () => {
                         const extractedUsername = frenchPress.plunge(test.arg, true);
 
-                        assert.equal(extractedUsername, test.expected);
+                        assert.strictEqual(extractedUsername, test.expected);
                     });
                 });
             });
@@ -209,7 +209,7 @@ describe('frenchPress.plunge(url, singleOperation=true)', () => {
                     it(testUtils.getDescription(test), () => {
                         const extractedUsername = frenchPress.plunge(test.arg, true);
 
-                        assert.equal(extractedUsername, test.expected);
+                        assert.strictEqual(extractedUsername, test.expected);
                     });
                 });
             });
@@ -228,7 +228,7 @@ describe('frenchPress.plunge(url, singleOperation=true)', () => {
                     it(testUtils.getDescription(test), () => {
                         const extractedUsername = frenchPress.plunge(test.arg, true);
 
-                        assert.equal(extractedUsername, test.expected);
+                        assert.strictEqual(extractedUsername, test.expected);
                     });
                 });
             });
@@ -248,7 +248,7 @@ describe('frenchPress.unbrew(username, type)', () => {
                         key.toLowerCase(),
                     );
 
-                    assert.equal(extractedUsername, test.expected);
+                    assert.strictEqual(extractedUsername, test.expected);
                 });
             });
         });
@@ -265,7 +265,7 @@ describe('frenchPress.isValidDomain(url)', () => {
             'youtube.com',
         ].forEach((domain) => {
             it(`${domain} should be a valid domain`, () => {
-                assert.equal(frenchPress.isValidDomain(domain), true);
+                assert.strictEqual(frenchPress.isValidDomain(domain), true);
             });
         });
     });
@@ -274,7 +274,7 @@ describe('frenchPress.isValidDomain(url)', () => {
         ['totallyLegit.com', 'google.com', 'bing.com', 'notEvenADomain'].forEach(
             (domain) => {
                 it(`${domain} should be a valid domain`, () => {
-                    assert.equal(frenchPress.isValidDomain(domain), false);
+                    assert.strictEqual(frenchPress.isValidDomain(domain), false);
                 });
             },
         );
