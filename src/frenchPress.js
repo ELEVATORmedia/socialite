@@ -23,6 +23,20 @@ const buildStandardURL = (domain, username) => {
  * to use in returning the absolute URL. if the username begins with
  * 'UC' or 'HC', we use a channel template string, otherwise we
  * default to the standard URL pattern
+ *
+ * NOTES:
+ * There are two kinds of YouTube channel names (non-id based):
+ * - Legacy UserNames: Denoted by youtube.com/user/username
+ * - Custom Channel Names: Denoted by youtube.com/c/customChannelName
+ *
+ * Both of these URLs can be shortened to youtube.com/username and will be
+ * redirected to the proper channel (assuming no-one else has claimed that url as
+ * a custom channel link).
+ *
+ * As such, we make the assumption that if a username is provided in place of an
+ * ID-based channel, we can redirect the user to a short-link (as there is no
+ * way to properly figure out if the username was a legacy channel or a
+ * custom channel name)
  */
 const buildYoutubeVariantURL = (username) => {
     if (username.startsWith('UC') || username.startsWith('HC')) {
