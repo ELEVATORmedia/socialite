@@ -61,6 +61,7 @@ const unbrew = (username, type) => {
         return '';
     }
 
+    // Using a special character's regex, parse out special characters from username
     const specialCharsRegex = new RegExp(specialCharacters, 'gmi');
     const noSpecialChars = username.replace(specialCharsRegex, '');
 
