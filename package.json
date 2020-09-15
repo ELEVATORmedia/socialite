@@ -1,6 +1,6 @@
 {
     "name": "@elevatormedia/french-press",
-    "version": "0.52.5",
+    "version": "0.53.0",
     "scripts": {
         "dev": "nodemon --exec babel-node src/client.js",
         "test": "mocha --recursive \"test/*.spec.js\"",
