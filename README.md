@@ -8,6 +8,8 @@ Utility package to extract and insert social media usernames from urls.
 -   [API](#API)
 -   [Development](#Development)
 
+> ⚠️ Please see `Plunge` [Policy & Assumptions](#plunge-policies) as well as `Unbrew` [Policy & Assumptions](#unbrew-policies) for a list of expected outputs for specific edge-case inputs
+
 ## Purpose
 
 This package is meant to be used as an additional utility package within ELEVATOR's ecosystem regarding
@@ -97,7 +99,7 @@ Catch All: youtube.com/myUser -> Can refer to a shortlnk for custom channel name
 
 Custom Channel Name URL: youtube.com/c/channel_id
 
-Standard Channel ID: youtube.com/channel/channel_id
+Standard Channel ID: youtube.com/channel/channel_id (can start with UC or UH)
 
 Legacy User Channel ID: youtube.com/user/myUser    ->    This is a legacy url and may no longer be supported in the future.
 ```
@@ -111,6 +113,13 @@ UH1234234 => https://www.youtube.com/channel/UH1234234
 ```
 
 You can read more about this URL scheme here: [Understanding YouTube Channel IDs](https://support.google.com/youtube/answer/6180214?hl=en&ref_topic=9257109)
+
+#### Unbrew Policies
+
+-   **User Input is empty**: Will output an empty string "".
+-   **User Input has special characters in it**: In the event of special characters, only `@` symbols are removed from the user input. Usernames such as `@#myU$er` would result in `#myU$ser`.
+-   **User Input has a url with the wrong domain in it**: In the event of a url from the wrong origin, an empty string will be returned. For example if the user input is `https://google.com/myUser`, `''` will be returned
+-   For `YouTube` URLs only: If the username is a legacy username or a custom channel username, the output url will be in the format `https://youtube.com/{usernameInput}`. Both types of usernames can be redirected from the root domain of the site if necessary
 
 ### `isValidDomain(url<string>)`
 
