@@ -1,7 +1,7 @@
 /**
  * Optional Client file, use this file to test the implementation
  */
-const frenchPress = require('./frenchPress');
+const frenchPress = require('../src/frenchPress');
 
 console.log('Uncomment my tests in client.js');
 

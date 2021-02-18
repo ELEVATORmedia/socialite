@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "noImplicitAny": true,
+        "allowSyntheticDefaultImports": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "target": "es2017",
+        "sourceMap": true,
+        "allowJs": true,
+        "esModuleInterop": true,
+        "declaration": true,
+        "declarationMap": true,
+        // NOTE ADDED FOR MIGRATION
+        // ref: https://github.com/storybookjs/storybook/issues/9463#issuecomment-599384571
+        // "skipLibCheck": true,
+        "baseUrl": ".",
+        "paths": {
+            "*": ["node_modules/*", "src/*"]
+        },
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "typeRoots": ["./node_modules/@types", "src/types"]
+    },
+    "include": ["./src/**/*", "src/types", "types/", "examples/"]
+}

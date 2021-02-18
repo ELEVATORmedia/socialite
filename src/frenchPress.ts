@@ -1,5 +1,6 @@
-const { ALL_SOCIAL_DOMAINS } = require('./enums');
-const {
+import { Socials } from 'types/socials';
+import { ALL_SOCIAL_DOMAINS } from './enums';
+import {
     optionalProtocol,
     optionalWWW,
     specialCharacters,
@@ -7,14 +8,15 @@ const {
     allSupportedDomains,
     nonOptionalWWW,
     nonOptionalProtocol,
-} = require('./expressions');
-const validator = require('validator');
+} from './expressions';
+import validator from 'validator';
 
 /**
  * Returns a template-filled string based on the pattern:
  * https://www.socialMediaSite.com/username
  */
-const buildStandardURL = (domain, username) => {
+// TODO: Should `domain` be type Socials?
+const buildStandardURL = (domain: string, username: string) => {
     return `https://www.${domain}.com/${username}`;
 };
 
@@ -38,7 +40,7 @@ const buildStandardURL = (domain, username) => {
  * way to properly figure out if the username was a legacy channel or a
  * custom channel name)
  */
-const buildYoutubeVariantURL = (username) => {
+const buildYoutubeVariantURL = (username: string) => {
     if (username.startsWith('UC') || username.startsWith('HC')) {
         return `https://www.youtube.com/channel/${username}`;
     } else {
@@ -51,11 +53,12 @@ const buildYoutubeVariantURL = (username) => {
  * a social media site. for example, if given 'username' and 'facebook' the output
  * will be 'https://www.facebook.com/username'
  */
-const unbrew = (username, type) => {
+const unbrew = (username: string, type: Socials) => {
     if (!username) {
         return '';
     }
 
+    // TODO: Replace toUpperCase with a TypeGuard
     // Validate that the requested type is a supported domain type
     if (!Object.keys(ALL_SOCIAL_DOMAINS).includes(type.toUpperCase())) {
         return '';
@@ -87,7 +90,7 @@ const unbrew = (username, type) => {
 /**
  * Validates that a url string is from a valid domain.
  */
-const isValidDomain = (input) => {
+const isValidDomain = (input: string) => {
     const supportedDomainRegex = new RegExp(allSupportedDomains, 'gmi');
 
     if (supportedDomainRegex.exec(input) !== null) {
@@ -101,7 +104,7 @@ const isValidDomain = (input) => {
  * Using a regular expression, a target string, and a replace with delimeter,
  * replace all instances of said expression in string and return the result;
  */
-const findAndReplace = (expression, targetString, replaceWith = '') => {
+const findAndReplace = (expression: RegExp, targetString: string, replaceWith = '') => {
     return targetString.replace(expression, replaceWith);
 };
 
@@ -109,7 +112,7 @@ const findAndReplace = (expression, targetString, replaceWith = '') => {
  * Using a rawStr and character delimiter, split the string by the delimeter,
  * filter out empty slots and return the first instance of the string.
  */
-const getUnique = (rawStr, delimiter = '<') => {
+const getUnique = (rawStr: string, delimiter = '<') => {
     const delimitedValues = rawStr.split(delimiter);
 
     const dups = delimitedValues.filter((value) => value !== '');
@@ -133,7 +136,7 @@ const getUnique = (rawStr, delimiter = '<') => {
  * properties in stages. This operation has a broader scope and can accomodate more
  * use-cases with the trade-off of potential performance hits.
  */
-const parseOutURLPrefix = (str, singleOperation) => {
+const parseOutURLPrefix = (str: string, singleOperation: boolean) => {
     if (!singleOperation) {
         /**
          * Use parts of regular expressions to parse out username in stages
@@ -178,7 +181,7 @@ const parseOutURLPrefix = (str, singleOperation) => {
  * Attempts to extract the username from a social media url by parsing out
  * social media url prefixes and blacklisted characters
  */
-const plunge = (url, singleOperation = false) => {
+const plunge = (url: string, singleOperation = false) => {
     // if no url is supplied we return an empty string.
     if (!url) {
         return '';
@@ -208,6 +211,4 @@ const plunge = (url, singleOperation = false) => {
     return noPrefixURL.replace(specialCharsRegex, '');
 };
 
-exports.plunge = plunge;
-exports.unbrew = unbrew;
-exports.isValidDomain = isValidDomain;
+export { plunge, unbrew, isValidDomain };
