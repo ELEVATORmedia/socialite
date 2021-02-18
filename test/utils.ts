@@ -5,7 +5,7 @@ import { Socials } from '../src';
 /**
  * Utility function to retrieve a standardized description for tests
  */
-const getDescription = ({ arg, expected }) => {
+const getDescription = ({ arg, expected }: Record<string, string>) => {
     return `should output "${expected}" when given "${arg}"`;
 };
 
@@ -18,7 +18,7 @@ const getDescription = ({ arg, expected }) => {
  */
 const getExtractUsernameTestCase = (
     site: string,
-    type: Socials,
+    type: string,
     defaultUser = 'myUser',
 ) => {
     const tests = [];
@@ -195,7 +195,7 @@ const getExtractUsernameTestCase = (
  * @param {*} username e.g., "MyUser"
  * @param {*} type  - enumaration of type see ALL_SOCIAL_MEDIA
  */
-const getBuildAbsoluteURLTestCase = (username = 'myUser', type) => {
+const getBuildAbsoluteURLTestCase = (username = 'myUser', type: string) => {
     const tests = [];
     const domainPrefix = `https://www.${type.toLowerCase()}.com/`;
     switch (type) {

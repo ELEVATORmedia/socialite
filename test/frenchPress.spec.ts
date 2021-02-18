@@ -1,7 +1,7 @@
 import { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } from './test-enums';
 import { ALL_SOCIAL_DOMAINS } from '../src/enums';
 import assert from 'assert';
-import frenchPress from '../src';
+import frenchPress, { Socials } from '../src';
 import testUtils from './utils';
 
 describe('frenchPress.plunge(url, singleOperation=false)', () => {
@@ -237,16 +237,13 @@ describe('frenchPress.plunge(url, singleOperation=true)', () => {
 });
 
 describe('frenchPress.unbrew(username, type)', () => {
-    Object.keys(ALL_SOCIAL_DOMAINS).forEach((key) => {
+    Object.keys(ALL_SOCIAL_DOMAINS).forEach((key: Socials) => {
         describe(`Build ${key} urls`, () => {
             var testCases = testUtils.getBuildAbsoluteURLTestCase('myUser', key);
 
             testCases.forEach((test) => {
                 it(testUtils.getDescription(test), () => {
-                    const extractedUsername = frenchPress.unbrew(
-                        test.arg,
-                        key.toLowerCase(),
-                    );
+                    const extractedUsername = frenchPress.unbrew(test.arg, key);
 
                     assert.strictEqual(extractedUsername, test.expected);
                 });
