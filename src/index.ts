@@ -1,6 +1,6 @@
-import * as FrenchPress from './frenchPress';
+import * as frenchPress from './frenchPress';
 
 export * from './types/socials';
 export * from './frenchPress';
 
-export default FrenchPress;
+export default frenchPress;

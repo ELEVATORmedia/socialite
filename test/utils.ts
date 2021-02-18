@@ -1,6 +1,6 @@
-const { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } = require('./test-enums');
-
-const { ALL_SOCIAL_DOMAINS } = require('../src/enums');
+import { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } from './test-enums';
+import { ALL_SOCIAL_DOMAINS } from '../src/enums';
+import { Socials } from '../src';
 
 /**
  * Utility function to retrieve a standardized description for tests
@@ -16,7 +16,11 @@ const getDescription = ({ arg, expected }) => {
  * @param {*} type  - enumaration of type see STANDARD_TEST_TYPES
  * @param {*} defaultUser  - expected user to use in test case.
  */
-const getExtractUsernameTestCase = (site, type, defaultUser = 'myUser') => {
+const getExtractUsernameTestCase = (
+    site: string,
+    type: Socials,
+    defaultUser = 'myUser',
+) => {
     const tests = [];
 
     switch (type) {
@@ -245,6 +249,8 @@ const getBuildAbsoluteURLTestCase = (username = 'myUser', type) => {
     return tests;
 };
 
-exports.getDescription = getDescription;
-exports.getExtractUsernameTestCase = getExtractUsernameTestCase;
-exports.getBuildAbsoluteURLTestCase = getBuildAbsoluteURLTestCase;
+export default {
+    getDescription,
+    getExtractUsernameTestCase,
+    getBuildAbsoluteURLTestCase,
+};

@@ -1,8 +1,8 @@
-const { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } = require('./test-enums');
-const { ALL_SOCIAL_DOMAINS } = require('../src/enums');
-const assert = require('assert');
-const frenchPress = require('../src/frenchPress');
-const testUtils = require('./utils');
+import { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } from './test-enums';
+import { ALL_SOCIAL_DOMAINS } from '../src/enums';
+import assert from 'assert';
+import frenchPress from '../src';
+import testUtils from './utils';
 
 describe('frenchPress.plunge(url, singleOperation=false)', () => {
     describe('FACEBOOK urls', () => {

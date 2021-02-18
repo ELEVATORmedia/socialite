@@ -3,7 +3,7 @@
     "version": "0.53.0",
     "scripts": {
         "dev": "nodemon --exec babel-node src/client.js",
-        "test": "mocha --recursive \"test/*.spec.js\"",
+        "test": "mocha --recursive \"test/*.spec.ts\"",
         "release": "bump --commit --tag --push",
         "github-publish": "yarn release && npm publish"
     },
@@ -37,8 +37,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "pretty-quick --staged",
-            "pre-push": "yarn test"
+            "pre-commit": "pretty-quick --staged"
         }
     },
     "dependencies": {
