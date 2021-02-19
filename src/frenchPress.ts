@@ -179,7 +179,7 @@ const parseOutURLPrefix = (str: string, singleOperation: boolean) => {
  * Attempts to extract the username from a social media url by parsing out
  * social media url prefixes and blacklisted characters
  */
-const extract = (url: string, singleOperation = false) => {
+const extractUser = (url: string, singleOperation = false) => {
     // if no url is supplied we return an empty string.
     if (!url) {
         return '';
@@ -209,4 +209,4 @@ const extract = (url: string, singleOperation = false) => {
     return noPrefixURL.replace(specialCharsRegex, '');
 };
 
-export { extract, buildUrl, isValidDomain };
+export { extractUser, buildUrl, isValidDomain };
