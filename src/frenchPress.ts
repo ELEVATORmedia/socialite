@@ -52,7 +52,7 @@ const buildYoutubeVariantURL = (username: string) => {
  * a social media site. for example, if given 'username' and 'facebook' the output
  * will be 'https://www.facebook.com/username'
  */
-const unbrew = (username: string, type: Social) => {
+const buildUrl = (username: string, type: Social) => {
     if (!username) {
         return '';
     }
@@ -179,7 +179,7 @@ const parseOutURLPrefix = (str: string, singleOperation: boolean) => {
  * Attempts to extract the username from a social media url by parsing out
  * social media url prefixes and blacklisted characters
  */
-const plunge = (url: string, singleOperation = false) => {
+const extract = (url: string, singleOperation = false) => {
     // if no url is supplied we return an empty string.
     if (!url) {
         return '';
@@ -209,4 +209,4 @@ const plunge = (url: string, singleOperation = false) => {
     return noPrefixURL.replace(specialCharsRegex, '');
 };
 
-export { plunge, unbrew, isValidDomain };
+export { extract, buildUrl, isValidDomain };

@@ -4,7 +4,7 @@ import assert from 'assert';
 import frenchPress, { Social } from '../src';
 import testUtils from './utils';
 
-describe('frenchPress.plunge(url, singleOperation=false)', () => {
+describe('frenchPress.extract(url, singleOperation=false)', () => {
     describe('FACEBOOK urls', () => {
         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
@@ -15,7 +15,7 @@ describe('frenchPress.plunge(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.plunge(test.arg);
+                        const extractedUsername = frenchPress.extract(test.arg);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -34,7 +34,7 @@ describe('frenchPress.plunge(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.plunge(test.arg);
+                        const extractedUsername = frenchPress.extract(test.arg);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -53,7 +53,7 @@ describe('frenchPress.plunge(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.plunge(test.arg);
+                        const extractedUsername = frenchPress.extract(test.arg);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -72,7 +72,7 @@ describe('frenchPress.plunge(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.plunge(test.arg);
+                        const extractedUsername = frenchPress.extract(test.arg);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -91,7 +91,7 @@ describe('frenchPress.plunge(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.plunge(test.arg);
+                        const extractedUsername = frenchPress.extract(test.arg);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -110,7 +110,7 @@ describe('frenchPress.plunge(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.plunge(test.arg);
+                        const extractedUsername = frenchPress.extract(test.arg);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -120,7 +120,7 @@ describe('frenchPress.plunge(url, singleOperation=false)', () => {
     });
 });
 
-describe('frenchPress.plunge(url, singleOperation=true)', () => {
+describe('frenchPress.extract(url, singleOperation=true)', () => {
     describe('FACEBOOK urls', () => {
         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
@@ -131,7 +131,7 @@ describe('frenchPress.plunge(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.plunge(test.arg, true);
+                        const extractedUsername = frenchPress.extract(test.arg, true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -150,7 +150,7 @@ describe('frenchPress.plunge(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.plunge(test.arg, true);
+                        const extractedUsername = frenchPress.extract(test.arg, true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -169,7 +169,7 @@ describe('frenchPress.plunge(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.plunge(test.arg, true);
+                        const extractedUsername = frenchPress.extract(test.arg, true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -188,7 +188,7 @@ describe('frenchPress.plunge(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.plunge(test.arg, true);
+                        const extractedUsername = frenchPress.extract(test.arg, true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -207,7 +207,7 @@ describe('frenchPress.plunge(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.plunge(test.arg, true);
+                        const extractedUsername = frenchPress.extract(test.arg, true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -226,7 +226,7 @@ describe('frenchPress.plunge(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.plunge(test.arg, true);
+                        const extractedUsername = frenchPress.extract(test.arg, true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -236,14 +236,14 @@ describe('frenchPress.plunge(url, singleOperation=true)', () => {
     });
 });
 
-describe('frenchPress.unbrew(username, type)', () => {
+describe('frenchPress.buildUrl(username, type)', () => {
     Object.keys(ALL_SOCIAL_DOMAINS).forEach((key: Social) => {
         describe(`Build ${key} urls`, () => {
             var testCases = testUtils.getBuildAbsoluteURLTestCase('myUser', key);
 
             testCases.forEach((test) => {
                 it(testUtils.getDescription(test), () => {
-                    const extractedUsername = frenchPress.unbrew(test.arg, key);
+                    const extractedUsername = frenchPress.buildUrl(test.arg, key);
 
                     assert.strictEqual(extractedUsername, test.expected);
                 });
