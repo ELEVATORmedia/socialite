@@ -1,5 +1,5 @@
 import { Socials } from 'types/socials';
-import { ALL_SOCIAL_DOMAINS } from './enums';
+import { ALL_SOCIAL_DOMAINS } from 'enums';
 import {
     optionalProtocol,
     optionalWWW,
@@ -8,7 +8,7 @@ import {
     allSupportedDomains,
     nonOptionalWWW,
     nonOptionalProtocol,
-} from './expressions';
+} from 'expressions';
 import validator from 'validator';
 
 /**
