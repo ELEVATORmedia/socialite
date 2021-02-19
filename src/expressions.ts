@@ -13,17 +13,13 @@ const nonOptionalWWW = `(www\\.)`;
 
 // Matches on a domain containing {socialMediaSite}.com/
 // Note that this exclude youtube patterns due to variants in the url pattern.
-const standardSocialPrefix = `((${Object.values(STANDARD_SOCIAL_DOMAINS)
-    // TODO: Remove this after confirming test
-    // .map((value: Socials) => value.toLowerCase())
-    .join('|')})\\.com\/)`; // eslint-disable-line no-useless-escape
+const standardSocialPrefix = `((${Object.values(STANDARD_SOCIAL_DOMAINS).join(
+    '|',
+)})\\.com\/)`; // eslint-disable-line no-useless-escape
 
 // Matches on any domain that takes the pattern {socialMediaSite.com}
 // No forward slash
-const allSupportedDomains = `((${Object.values(ALL_SOCIAL_DOMAINS)
-    // TODO: Remove this after confirming test
-    // .map((value: Socials) => value.toLowerCase())
-    .join('|')})\\.com)`;
+const allSupportedDomains = `((${Object.values(ALL_SOCIAL_DOMAINS).join('|')})\\.com)`;
 
 /*
     Youtube userVariation:

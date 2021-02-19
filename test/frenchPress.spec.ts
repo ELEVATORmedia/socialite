@@ -1,7 +1,7 @@
 import { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } from './test-enums';
 import { ALL_SOCIAL_DOMAINS } from '../src/enums';
 import assert from 'assert';
-import frenchPress, { Socials } from '../src';
+import frenchPress, { Social } from '../src';
 import testUtils from './utils';
 
 describe('frenchPress.plunge(url, singleOperation=false)', () => {
@@ -237,7 +237,7 @@ describe('frenchPress.plunge(url, singleOperation=true)', () => {
 });
 
 describe('frenchPress.unbrew(username, type)', () => {
-    Object.keys(ALL_SOCIAL_DOMAINS).forEach((key: Socials) => {
+    Object.keys(ALL_SOCIAL_DOMAINS).forEach((key: Social) => {
         describe(`Build ${key} urls`, () => {
             var testCases = testUtils.getBuildAbsoluteURLTestCase('myUser', key);
 

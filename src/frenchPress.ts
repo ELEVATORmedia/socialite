@@ -1,4 +1,4 @@
-import { Socials } from 'types/socials';
+import { isSupportedSocial, Social } from 'types/socials';
 import { ALL_SOCIAL_DOMAINS } from 'enums';
 import {
     optionalProtocol,
@@ -15,8 +15,7 @@ import validator from 'validator';
  * Returns a template-filled string based on the pattern:
  * https://www.socialMediaSite.com/username
  */
-// TODO: Should `domain` be type Socials?
-const buildStandardURL = (domain: string, username: string) => {
+const buildStandardURL = (domain: Social, username: string) => {
     return `https://www.${domain}.com/${username}`;
 };
 
@@ -53,14 +52,13 @@ const buildYoutubeVariantURL = (username: string) => {
  * a social media site. for example, if given 'username' and 'facebook' the output
  * will be 'https://www.facebook.com/username'
  */
-const unbrew = (username: string, type: Socials) => {
+const unbrew = (username: string, type: Social) => {
     if (!username) {
         return '';
     }
 
-    // TODO: Replace toUpperCase with a TypeGuard
     // Validate that the requested type is a supported domain type
-    if (!Object.keys(ALL_SOCIAL_DOMAINS).includes(type.toUpperCase())) {
+    if (!isSupportedSocial(type)) {
         return '';
     }
 
@@ -70,7 +68,7 @@ const unbrew = (username: string, type: Socials) => {
 
     // Otherwise switch through the requested url type and return the
     // absolute url
-    switch (type.toUpperCase()) {
+    switch (type) {
         // All of these domain follow the same standard URL pattern
         case ALL_SOCIAL_DOMAINS.FACEBOOK:
         case ALL_SOCIAL_DOMAINS.INSTAGRAM:

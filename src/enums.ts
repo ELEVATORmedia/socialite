@@ -1,17 +1,17 @@
-import { Socials, SocialsUpperCase } from 'types/socials';
+import { Social, SocialsUpperCase } from 'types/socials';
 
 /**
  * Standard Social Domains refer to those that do not require special parsing
  * These urls are typically formatted as https://www.socialMediaSiteDomain.com/username
  */
-const STANDARD_SOCIAL_DOMAINS: Record<Exclude<SocialsUpperCase, 'YOUTUBE'>, Socials> = {
+const STANDARD_SOCIAL_DOMAINS: Record<Exclude<SocialsUpperCase, 'YOUTUBE'>, Social> = {
     FACEBOOK: 'facebook',
     INSTAGRAM: 'instagram',
     TWITTER: 'twitter',
     SOUNDCLOUD: 'soundcloud',
 };
 
-const ALL_SOCIAL_DOMAINS: Record<SocialsUpperCase, Socials> = {
+const ALL_SOCIAL_DOMAINS: Record<SocialsUpperCase, Social> = {
     ...STANDARD_SOCIAL_DOMAINS,
     YOUTUBE: 'youtube',
 };
