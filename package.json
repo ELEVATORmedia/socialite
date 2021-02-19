@@ -9,7 +9,7 @@
     },
     "description": "Utility package to extract and insert social media usernames from urls",
     "main": "src/socialite.ts",
-    "author": "Donald Stolz <donaldtstolz@gmail.com>, Jesse Meza <jmeza081@gmail.com>",
+    "author": "Donald Stolz <donald.stolz@elevatormag.com>, Jesse Meza <jmeza081@gmail.com>",
     "license": "MIT",
     "devDependencies": {
         "@types/jest": "^26.0.20",
