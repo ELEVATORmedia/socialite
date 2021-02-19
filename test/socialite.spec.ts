@@ -1,10 +1,10 @@
 import { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } from './test-enums';
 import { ALL_SOCIAL_DOMAINS } from '../src/enums';
 import assert from 'assert';
-import frenchPress, { Social } from '../src';
+import socialite, { Social } from '../src';
 import testUtils from './utils';
 
-describe('frenchPress.extractUser(url, singleOperation=false)', () => {
+describe('socialite.extractUser(url, singleOperation=false)', () => {
     describe('FACEBOOK urls', () => {
         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
@@ -15,7 +15,7 @@ describe('frenchPress.extractUser(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUser(test.arg);
+                        const extractedUsername = socialite.extractUser(test.arg);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -34,7 +34,7 @@ describe('frenchPress.extractUser(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUser(test.arg);
+                        const extractedUsername = socialite.extractUser(test.arg);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -53,7 +53,7 @@ describe('frenchPress.extractUser(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUser(test.arg);
+                        const extractedUsername = socialite.extractUser(test.arg);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -72,7 +72,7 @@ describe('frenchPress.extractUser(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUser(test.arg);
+                        const extractedUsername = socialite.extractUser(test.arg);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -91,7 +91,7 @@ describe('frenchPress.extractUser(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUser(test.arg);
+                        const extractedUsername = socialite.extractUser(test.arg);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -110,7 +110,7 @@ describe('frenchPress.extractUser(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUser(test.arg);
+                        const extractedUsername = socialite.extractUser(test.arg);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -120,7 +120,7 @@ describe('frenchPress.extractUser(url, singleOperation=false)', () => {
     });
 });
 
-describe('frenchPress.extractUser(url, singleOperation=true)', () => {
+describe('socialite.extractUser(url, singleOperation=true)', () => {
     describe('FACEBOOK urls', () => {
         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
@@ -131,7 +131,7 @@ describe('frenchPress.extractUser(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUser(test.arg, true);
+                        const extractedUsername = socialite.extractUser(test.arg, true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -150,7 +150,7 @@ describe('frenchPress.extractUser(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUser(test.arg, true);
+                        const extractedUsername = socialite.extractUser(test.arg, true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -169,7 +169,7 @@ describe('frenchPress.extractUser(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUser(test.arg, true);
+                        const extractedUsername = socialite.extractUser(test.arg, true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -188,7 +188,7 @@ describe('frenchPress.extractUser(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUser(test.arg, true);
+                        const extractedUsername = socialite.extractUser(test.arg, true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -207,7 +207,7 @@ describe('frenchPress.extractUser(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUser(test.arg, true);
+                        const extractedUsername = socialite.extractUser(test.arg, true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -226,7 +226,7 @@ describe('frenchPress.extractUser(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = frenchPress.extractUser(test.arg, true);
+                        const extractedUsername = socialite.extractUser(test.arg, true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -236,14 +236,14 @@ describe('frenchPress.extractUser(url, singleOperation=true)', () => {
     });
 });
 
-describe('frenchPress.buildUrl(username, type)', () => {
+describe('socialite.buildUrl(username, type)', () => {
     Object.keys(ALL_SOCIAL_DOMAINS).forEach((key: Social) => {
         describe(`Build ${key} urls`, () => {
             var testCases = testUtils.getBuildAbsoluteURLTestCase('myUser', key);
 
             testCases.forEach((test) => {
                 it(testUtils.getDescription(test), () => {
-                    const extractedUsername = frenchPress.buildUrl(test.arg, key);
+                    const extractedUsername = socialite.buildUrl(test.arg, key);
 
                     assert.strictEqual(extractedUsername, test.expected);
                 });
@@ -252,7 +252,7 @@ describe('frenchPress.buildUrl(username, type)', () => {
     });
 });
 
-describe('frenchPress.isValidDomain(url)', () => {
+describe('socialite.isValidDomain(url)', () => {
     describe('valid domains', () => {
         [
             'facebook.com',
@@ -262,7 +262,7 @@ describe('frenchPress.isValidDomain(url)', () => {
             'youtube.com',
         ].forEach((domain) => {
             it(`${domain} should be a valid domain`, () => {
-                assert.strictEqual(frenchPress.isValidDomain(domain), true);
+                assert.strictEqual(socialite.isValidDomain(domain), true);
             });
         });
     });
@@ -271,7 +271,7 @@ describe('frenchPress.isValidDomain(url)', () => {
         ['totallyLegit.com', 'google.com', 'bing.com', 'notEvenADomain'].forEach(
             (domain) => {
                 it(`${domain} should be a valid domain`, () => {
-                    assert.strictEqual(frenchPress.isValidDomain(domain), false);
+                    assert.strictEqual(socialite.isValidDomain(domain), false);
                 });
             },
         );
