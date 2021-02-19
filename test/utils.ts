@@ -1,11 +1,11 @@
-const { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } = require('./test-enums');
-
-const { ALL_SOCIAL_DOMAINS } = require('../src/enums');
+import { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } from './test-enums';
+import { ALL_SOCIAL_DOMAINS } from '../src/enums';
+import { Social } from '../src';
 
 /**
  * Utility function to retrieve a standardized description for tests
  */
-const getDescription = ({ arg, expected }) => {
+const getDescription = ({ arg, expected }: Record<string, string>) => {
     return `should output "${expected}" when given "${arg}"`;
 };
 
@@ -16,7 +16,11 @@ const getDescription = ({ arg, expected }) => {
  * @param {*} type  - enumaration of type see STANDARD_TEST_TYPES
  * @param {*} defaultUser  - expected user to use in test case.
  */
-const getExtractUsernameTestCase = (site, type, defaultUser = 'myUser') => {
+const getExtractUsernameTestCase = (
+    site: string,
+    type: string,
+    defaultUser = 'myUser',
+) => {
     const tests = [];
 
     switch (type) {
@@ -191,7 +195,7 @@ const getExtractUsernameTestCase = (site, type, defaultUser = 'myUser') => {
  * @param {*} username e.g., "MyUser"
  * @param {*} type  - enumaration of type see ALL_SOCIAL_MEDIA
  */
-const getBuildAbsoluteURLTestCase = (username = 'myUser', type) => {
+const getBuildAbsoluteURLTestCase = (username = 'myUser', type: string) => {
     const tests = [];
     const domainPrefix = `https://www.${type.toLowerCase()}.com/`;
     switch (type) {
@@ -245,6 +249,8 @@ const getBuildAbsoluteURLTestCase = (username = 'myUser', type) => {
     return tests;
 };
 
-exports.getDescription = getDescription;
-exports.getExtractUsernameTestCase = getExtractUsernameTestCase;
-exports.getBuildAbsoluteURLTestCase = getBuildAbsoluteURLTestCase;
+export default {
+    getDescription,
+    getExtractUsernameTestCase,
+    getBuildAbsoluteURLTestCase,
+};

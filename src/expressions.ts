@@ -1,6 +1,7 @@
-const { STANDARD_SOCIAL_DOMAINS, ALL_SOCIAL_DOMAINS } = require('./enums');
+import { ALL_SOCIAL_DOMAINS, STANDARD_SOCIAL_DOMAINS } from 'enums';
 
 // Matches https:// or http:// if available
+
 // eslint-disable-next-line no-useless-escape
 const optionalProtocol = `(https?:\/\/)?`;
 // eslint-disable-next-line no-useless-escape
@@ -12,15 +13,13 @@ const nonOptionalWWW = `(www\\.)`;
 
 // Matches on a domain containing {socialMediaSite}.com/
 // Note that this exclude youtube patterns due to variants in the url pattern.
-const standardSocialPrefix = `((${Object.values(STANDARD_SOCIAL_DOMAINS)
-    .map((value) => value.toLowerCase())
-    .join('|')})\\.com\/)`; // eslint-disable-line no-useless-escape
+const standardSocialPrefix = `((${Object.values(STANDARD_SOCIAL_DOMAINS).join(
+    '|',
+)})\\.com\/)`; // eslint-disable-line no-useless-escape
 
 // Matches on any domain that takes the pattern {socialMediaSite.com}
 // No forward slash
-const allSupportedDomains = `((${Object.values(ALL_SOCIAL_DOMAINS)
-    .map((value) => value.toLowerCase())
-    .join('|')})\\.com)`;
+const allSupportedDomains = `((${Object.values(ALL_SOCIAL_DOMAINS).join('|')})\\.com)`;
 
 /*
     Youtube userVariation:
@@ -43,7 +42,7 @@ const specialCharacters = '@+';
  */
 const socialPrefix = `(${standardSocialPrefix}|${youtubeSocialPrefix})`;
 
-module.exports = {
+export {
     optionalProtocol,
     optionalWWW,
     specialCharacters,

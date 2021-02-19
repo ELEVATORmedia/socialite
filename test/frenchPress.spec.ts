@@ -1,8 +1,8 @@
-const { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } = require('./test-enums');
-const { ALL_SOCIAL_DOMAINS } = require('../src/enums');
-const assert = require('assert');
-const frenchPress = require('../src/frenchPress');
-const testUtils = require('./utils');
+import { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } from './test-enums';
+import { ALL_SOCIAL_DOMAINS } from '../src/enums';
+import assert from 'assert';
+import frenchPress, { Social } from '../src';
+import testUtils from './utils';
 
 describe('frenchPress.plunge(url, singleOperation=false)', () => {
     describe('FACEBOOK urls', () => {
@@ -237,16 +237,13 @@ describe('frenchPress.plunge(url, singleOperation=true)', () => {
 });
 
 describe('frenchPress.unbrew(username, type)', () => {
-    Object.keys(ALL_SOCIAL_DOMAINS).forEach((key) => {
+    Object.keys(ALL_SOCIAL_DOMAINS).forEach((key: Social) => {
         describe(`Build ${key} urls`, () => {
             var testCases = testUtils.getBuildAbsoluteURLTestCase('myUser', key);
 
             testCases.forEach((test) => {
                 it(testUtils.getDescription(test), () => {
-                    const extractedUsername = frenchPress.unbrew(
-                        test.arg,
-                        key.toLowerCase(),
-                    );
+                    const extractedUsername = frenchPress.unbrew(test.arg, key);
 
                     assert.strictEqual(extractedUsername, test.expected);
                 });
