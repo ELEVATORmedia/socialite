@@ -1,9 +1,3 @@
----
-name: Pull Request
-about: Create a report to help us improve
-assignees: 'donald-stolz'
----
-
 # Change Log
 
 ## Description
