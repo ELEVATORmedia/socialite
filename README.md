@@ -1,4 +1,4 @@
-# socialite 🎭
+<h1 align="center" >🎭 socialite 🎭 </h1>
 
 Utility package to extract social media usernames from urls and create urls from usernames.
 
@@ -6,9 +6,9 @@ Utility package to extract social media usernames from urls and create urls from
 
 This package offers a two-way set of functions `extractUser` & `buildUrl`
 
-### Retrieving a username from a social media url
+### extractUser
 
-To "extract" a username from a social media url we do the following:
+To extract a username from a social media url we do the following:
 
 ```js
 import socialite from 'socialite';
@@ -20,7 +20,7 @@ console.log(socialite.extractUser(rawURL));
 
 The above will output `myUser`;
 
-### Building an absolute URL from a social media username and a `type`
+### buildUrl
 
 To retrieve the absolute URL from a given username and `type` (e.g., facebook, instagram, twitter), we use the `buildUrl` call:
 
@@ -28,11 +28,13 @@ To retrieve the absolute URL from a given username and `type` (e.g., facebook, i
 import socialite from 'socialite';
 
 const rawUsername = 'myUser';
-const type = 'facebook'; // is an enumeration of lowercase social media domains.
+const type = 'facebook';
 
 console.log(socialite.buildUrl(rawUsername, type));
 ```
 
 The above call will output `https://www.facebook.com/myUser`;
+
+## Full Documentation & Contributing
 
 ⚠️ Please see the repo's [wiki](https://github.com/ELEVATORmedia/socialite/wiki) for the full documentation on running and contributing to this project ⚠️
