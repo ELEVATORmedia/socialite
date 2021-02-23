@@ -1,4 +1,4 @@
-import { ALL_SOCIAL_DOMAINS, STANDARD_SOCIAL_DOMAINS } from 'enums';
+import { ALL_SOCIAL_DOMAINS, STANDARD_SOCIAL_DOMAINS } from './enums';
 
 // Matches https:// or http:// if available
 

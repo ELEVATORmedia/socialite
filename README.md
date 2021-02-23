@@ -1,3 +1,8 @@
+![GitHub](https://img.shields.io/github/license/elevatormedia/socialite)
+![npm](https://img.shields.io/npm/v/@elevatormedia/socialite)
+![npm](https://img.shields.io/npm/dt/@elevatormedia/socialite)
+![GitHub issues](https://img.shields.io/github/issues-raw/elevatormedia/socialite)
+
 <h1 align="center" >🎭 socialite 🎭 </h1>
 
 Utility package to extract social media usernames from urls and create urls from usernames.
