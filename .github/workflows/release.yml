@@ -1,15 +1,19 @@
-# This is a basic workflow to help you get started with Actions
-
+# Workflow for updating release when changes are pushed to master
 name: Update Release CI
 
 # Controls when the action will run.
 on:
-    [push]
     # Triggers the workflow on push but only for the master branch
-    # push:
-    #     branches: [master]
+    push:
+        branches: [master]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# Jobs Steps:
+# 0. Checkout Repository
+# 1. Check node_modules cache; Install dependencies
+# 2. Test files
+# 3. Bump version
+# 4. Build Code
+# 5. Publish to NPM
 jobs:
     publish:
         # The type of runner that the job will run on
@@ -17,7 +21,6 @@ jobs:
 
         # Steps represent a sequence of tasks that will be executed as part of the job
         steps:
-            # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
             - name: 'Checkout Source Code'
               uses: actions/checkout@v2
               with:
@@ -33,29 +36,19 @@ jobs:
             - name: Install
               if: steps.cache-modules.outputs.cache-hit != 'true'
               run: yarn install
+
             - name: 'Test'
               run: yarn test
 
-            - name: 'cat package.json'
-              run: cat ./package.json
-            # - name: 'Setup Node.js'
-            #   uses: 'actions/setup-node@v1'
-            #   with:
-            #       node-version: 12
             - name: 'Automated Version Bump'
               id: version-bump
               uses: 'phips28/gh-action-bump-version@master'
+              # TODO: Remove skip & default before merging to master
               with:
-                  tag-prefix: ''
+                  skip-tag: 'true'
+                  default: prerelease
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            - name: 'cat package.json'
-              run: cat ./package.json
-
-            - name: 'Output Step'
-              env:
-                  NEW_TAG: ${{ steps.version-bump.outputs.newTag }}
-              run: echo "new tag $NEW_TAG"
 
             - name: 'Build'
               if: steps.cache-modules.outputs.cache-hit != 'true'
@@ -63,8 +56,3 @@ jobs:
 
             - name: 'Publish'
               run: yarn npm-publish --dry-run
-# Steps:
-# Get code
-# Cache
-#
-#
