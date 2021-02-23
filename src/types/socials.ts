@@ -1,4 +1,4 @@
-import { ALL_SOCIAL_DOMAINS } from 'enums';
+import { ALL_SOCIAL_DOMAINS } from '../enums';
 
 export type Social = 'facebook' | 'instagram' | 'twitter' | 'soundcloud' | 'youtube';
 

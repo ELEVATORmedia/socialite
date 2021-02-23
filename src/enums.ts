@@ -1,4 +1,4 @@
-import { Social, SocialsUpperCase } from 'types/socials';
+import { Social, SocialsUpperCase } from './types/socials';
 
 /**
  * Standard Social Domains refer to those that do not require special parsing

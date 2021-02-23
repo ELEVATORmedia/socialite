@@ -1,6 +1,5 @@
 import { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } from './test-enums';
 import { ALL_SOCIAL_DOMAINS } from '../src/enums';
-import { Social } from '../src';
 
 /**
  * Utility function to retrieve a standardized description for tests

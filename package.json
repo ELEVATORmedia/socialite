@@ -1,16 +1,22 @@
 {
     "name": "@elevatormedia/socialite",
-    "version": "1.0.0-alpha",
+    "version": "1.0.0",
     "scripts": {
+        "prebuild": "rm -rf dist",
         "build": "tsc",
         "test": "jest",
         "release": "bump --commit --tag --push",
-        "github-publish": "yarn release && npm publish --access public"
+        "npm-publish": "npm publish --access public"
     },
     "description": "Utility package to extract social media usernames from urls and create urls from usernames",
-    "main": "src/socialite.ts",
+    "main": "dist/socialite.js",
+    "types": "dist/index.d.ts",
     "author": "Donald Stolz <donald.stolz@elevatormag.com>, Jesse Meza <jmeza081@gmail.com>",
     "license": "MIT",
+    "private": false,
+    "files": [
+        "dist"
+    ],
     "devDependencies": {
         "@jsdevtools/version-bump-prompt": "^6.1.0",
         "@types/jest": "^26.0.20",
@@ -38,5 +44,10 @@
     },
     "dependencies": {
         "validator": "^12.2.0"
-    }
+    },
+    "keywords": [
+        "social-media",
+        "url-parser",
+        "social-media-profiles"
+    ]
 }
