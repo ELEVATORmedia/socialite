@@ -1,6 +1,8 @@
+![npm version](https://img.shields.io/npm/v/@elevatormedia/socialite)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ELEVATORmedia/socialite/Update%20Release%20CI?label=latest%20release)
 ![GitHub](https://img.shields.io/github/license/elevatormedia/socialite)
-![npm](https://img.shields.io/npm/v/@elevatormedia/socialite)
-![npm](https://img.shields.io/npm/dt/@elevatormedia/socialite)
+![npm downloads](https://img.shields.io/npm/dt/@elevatormedia/socialite)
+![npm bundle size](https://img.shields.io/bundlephobia/min/@elevatormedia/socialite)
 ![GitHub issues](https://img.shields.io/github/issues-raw/elevatormedia/socialite)
 
 <h1 align="center" >🎭 socialite 🎭 </h1>
