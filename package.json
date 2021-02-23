@@ -6,7 +6,7 @@
         "build": "tsc",
         "test": "jest",
         "release": "bump --commit --tag --push",
-        "publish": "npm publish --access public"
+        "npm-publish": "npm publish --access public"
     },
     "description": "Utility package to extract social media usernames from urls and create urls from usernames",
     "main": "dist/socialite.js",

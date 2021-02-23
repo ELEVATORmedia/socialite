@@ -18,7 +18,10 @@ jobs:
         # Steps represent a sequence of tasks that will be executed as part of the job
         steps:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-            - uses: actions/checkout@v2
+            - name: 'Checkout Source Code'
+              uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.ref }}
 
             - name: Cache node_modules
               id: cache-modules
@@ -26,14 +29,42 @@ jobs:
               with:
                   path: node_modules
                   key: 12.x-${{ runner.OS }}-build-${{ hashFiles('package.json') }}
-            - name: Build
+
+            - name: Install
               if: steps.cache-modules.outputs.cache-hit != 'true'
               run: yarn install
-
-            - name: Test
+            - name: 'Test'
               run: yarn test
+
+            - name: 'cat package.json'
+              run: cat ./package.json
+            # - name: 'Setup Node.js'
+            #   uses: 'actions/setup-node@v1'
+            #   with:
+            #       node-version: 12
+            - name: 'Automated Version Bump'
+              id: version-bump
+              uses: 'phips28/gh-action-bump-version@master'
+              with:
+                  tag-prefix: ''
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: 'cat package.json'
+              run: cat ./package.json
+
+            - name: 'Output Step'
+              env:
+                  NEW_TAG: ${{ steps.version-bump.outputs.newTag }}
+              run: echo "new tag $NEW_TAG"
+
+            - name: 'Build'
+              if: steps.cache-modules.outputs.cache-hit != 'true'
+              run: yarn tsc
+
+            - name: 'Publish'
+              run: yarn npm-publish --dry-run
 # Steps:
-#
-#
+# Get code
+# Cache
 #
 #
