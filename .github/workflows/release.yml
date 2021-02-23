@@ -1,13 +1,13 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Update Release CI
 
 # Controls when the action will run.
 on:
+    [push]
     # Triggers the workflow on push but only for the master branch
-    # TODO: change deploys to release branches
-    push:
-        branches: [master]
+    # push:
+    #     branches: [master]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,14 +29,9 @@ jobs:
             - name: Build
               if: steps.cache-modules.outputs.cache-hit != 'true'
               run: yarn install
+
             - name: Test
               run: yarn test
-
-            - name: Publish
-              uses: mikeal/merge-release@v4.0.7
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 # Steps:
 #
 #
