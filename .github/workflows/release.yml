@@ -43,7 +43,7 @@ jobs:
               id: version-bump
               uses: 'phips28/gh-action-bump-version@master'
               env:
-                  GITHUB_TOKEN: ${{ secrets.COMMIT_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: 'Build'
               if: steps.cache-modules.outputs.cache-hit != 'true'
