@@ -44,14 +44,13 @@ jobs:
               id: version-bump
               uses: 'phips28/gh-action-bump-version@master'
               env:
-                  GITHUB_TOKEN: ${{ secrets.COMMIT_TOKEN }}
-                  GITHUB_ACTOR: donald-stolz
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: 'Build'
               if: steps.cache-modules.outputs.cache-hit != 'true'
               run: yarn tsc
 
             - name: 'Publish'
-              run: yarn npm-publish --dry-run
+              run: npm publish --access public
               env:
-                  NPM_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
