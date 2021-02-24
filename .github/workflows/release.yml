@@ -3,9 +3,10 @@ name: Update Release CI
 
 # Controls when the action will run.
 on:
+    [push]
     # Triggers the workflow on push but only for the master branch
-    push:
-        branches: [master]
+    # push:
+    #     branches: [master]
 
 jobs:
     publish:
@@ -44,12 +45,13 @@ jobs:
               uses: 'phips28/gh-action-bump-version@master'
               env:
                   GITHUB_TOKEN: ${{ secrets.COMMIT_TOKEN }}
+                  GITHUB_ACTOR: donald-stolz
 
             - name: 'Build'
               if: steps.cache-modules.outputs.cache-hit != 'true'
               run: yarn tsc
 
             - name: 'Publish'
-              run: yarn npm-publish
+              run: yarn npm-publish --dry-run
               env:
                   NPM_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
