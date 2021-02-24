@@ -40,17 +40,17 @@ jobs:
             - name: 'Test'
               run: yarn test
 
-            - name: 'Automated Version Bump'
-              id: version-bump
-              uses: 'phips28/gh-action-bump-version@master'
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            # - name: 'Automated Version Bump'
+            #   id: version-bump
+            #   uses: 'phips28/gh-action-bump-version@master'
+            #   env:
+            #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: 'Build'
               if: steps.cache-modules.outputs.cache-hit != 'true'
               run: yarn tsc
 
             - name: 'Publish'
-              run: npm publish --access public
+              run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}" && npm publish --access public
               env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
+                  NPM_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
