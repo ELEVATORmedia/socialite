@@ -1,6 +1,6 @@
 {
     "name": "@elevatormedia/socialite",
-    "version": "1.0.0-beta.5",
+    "version": "1.0.0-beta.6",
     "scripts": {
         "prebuild": "rm -rf dist",
         "build": "tsc",
