@@ -209,4 +209,45 @@ const extractUser = (url: string, singleOperation = false) => {
     return noPrefixURL.replace(specialCharsRegex, '');
 };
 
+// TODO: Wiki
+// Verbose comments
+/**
+ * Takes a username and social type then verifies that the account actually exists
+ * for example, TODO: lorem ipsum
+ */
+const userAccountExists = async (username: string, type: Social): Promise<boolean> => {
+    if (!username || !type) {
+        return false;
+    }
+
+    // Otherwise switch through the requested url type and return the
+    // absolute url
+    switch (type) {
+        case ALL_SOCIAL_DOMAINS.INSTAGRAM:
+        // TODO: returns 301 if exists & 302 if not
+        // ¿¿ Is it safe/reliable to use like this ??
+        case ALL_SOCIAL_DOMAINS.TWITTER:
+            // TODO: Check for "This account doesn’t exist"
+            return false;
+        case ALL_SOCIAL_DOMAINS.YOUTUBE:
+            // YouTube has variants for their urls
+            if (username.startsWith('UC') || username.startsWith('HC')) {
+                // TODO: Will need to Check for 404 or "This channel does not exist." in the body
+                return false;
+            }
+        // All of these types & youtube variants follow the same standard pattern
+        case ALL_SOCIAL_DOMAINS.FACEBOOK:
+        case ALL_SOCIAL_DOMAINS.SOUNDCLOUD:
+            return verifyStandardUrl(username, type);
+        default:
+            // Signifies that we do not accomodate this type of domain.
+            return false;
+    }
+};
+
+const verifyStandardUrl = (username: string, social: Social) =>
+    fetch(buildUrl(username, social)).then((res) => {
+        return res.status === 200;
+    });
+
 export { extractUser, buildUrl, isValidDomain };

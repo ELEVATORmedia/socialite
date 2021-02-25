@@ -26,6 +26,7 @@ const allSupportedDomains = `((${Object.values(ALL_SOCIAL_DOMAINS).join('|')})\\
     Accounts for variations in user and channel name urls for legacy URLS if the previously
     matched patterns are:
     - youtube.com/username
+	// TODO: does 'c/channel_id' work still?
     - youtube.com/c/channel_id
     - youtube.com/user/username -> this is a legacy url
     - youtube.com/channel/channel_id
