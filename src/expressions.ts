@@ -12,7 +12,7 @@ const optionalWWW = `(www\\.)?`;
 const nonOptionalWWW = `(www\\.)`;
 
 // Matches on a domain containing {socialMediaSite}.com/
-// Note that this exclude youtube patterns due to variants in the url pattern.
+// Note that this exclude youtube & spotify patterns due to variants in the url pattern.
 const standardSocialPrefix = `((${Object.values(STANDARD_SOCIAL_DOMAINS).join(
     '|',
 )})\\.com\/)`; // eslint-disable-line no-useless-escape
@@ -36,11 +36,32 @@ const youtubeSocialPrefix = `((youtube\\.com\/)((c|user|channel)\/)?)`;
 // Parse out one ore more instances of special characters
 const specialCharacters = '@+';
 
+/*
+    Spotify linkVariations:
+    Accounts for variations in user, artist, track, playlist, and legacy URLS if the matched 
+	patterns are:
+    - open.spotify.com/artist/spotifyId
+    - open.spotify.com/user/spotifyId
+    - open.spotify.com/track/spotifyId
+    - open.spotify.com/playlist/spotifyId
+		-- Legacy urls --
+    - play.spotify.com/artist/spotifyId
+    - play.spotify.com/user/spotifyId
+    - play.spotify.com/track/spotifyId
+    - play.spotify.com/playlist/spotifyId
+*/
+// Spotify URL handling
+// eslint-disable-next-line no-useless-escape
+const spotifyPrefix = `((open.|play.)spotify.com\/(artist|user|track|playlist)\/)`;
+
+// Can't verify it's always 10-22 (i.e. doesn't specify in docs), but most are 22 or 10
+const spotifyId = `([0-9A-Za-z]{10,30})`;
+
 /**
- * Merge the standard domain pattern to the more complex youtube pattern to generate
- * the overal social domain prefix pattern
+ * Merge the standard domain pattern to the more complex youtube & spotify patterns to generate
+ * the overall social domain prefix pattern
  */
-const socialPrefix = `(${standardSocialPrefix}|${youtubeSocialPrefix})`;
+const socialPrefix = `(${standardSocialPrefix}|${youtubeSocialPrefix}|${spotifyPrefix})`;
 
 export {
     optionalProtocol,
@@ -52,4 +73,6 @@ export {
     nonOptionalWWW,
     allSupportedDomains,
     nonOptionalProtocol,
+    spotifyPrefix,
+    spotifyId,
 };

@@ -4,7 +4,10 @@ import { Social, SocialsUpperCase } from './types/socials';
  * Standard Social Domains refer to those that do not require special parsing
  * These urls are typically formatted as https://www.socialMediaSiteDomain.com/username
  */
-const STANDARD_SOCIAL_DOMAINS: Record<Exclude<SocialsUpperCase, 'YOUTUBE'>, Social> = {
+const STANDARD_SOCIAL_DOMAINS: Record<
+    Exclude<SocialsUpperCase, 'YOUTUBE' | 'SPOTIFY'>,
+    Social
+> = {
     FACEBOOK: 'facebook',
     INSTAGRAM: 'instagram',
     TWITTER: 'twitter',
@@ -14,6 +17,7 @@ const STANDARD_SOCIAL_DOMAINS: Record<Exclude<SocialsUpperCase, 'YOUTUBE'>, Soci
 const ALL_SOCIAL_DOMAINS: Record<SocialsUpperCase, Social> = {
     ...STANDARD_SOCIAL_DOMAINS,
     YOUTUBE: 'youtube',
+    SPOTIFY: 'spotify',
 };
 
 Object.freeze(STANDARD_SOCIAL_DOMAINS);

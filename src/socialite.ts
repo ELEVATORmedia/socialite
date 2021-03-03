@@ -1,4 +1,4 @@
-import { isSupportedSocial, Social } from './types/socials';
+import { isSupportedSocial, Social, SpotifyLink } from './types/socials';
 import { ALL_SOCIAL_DOMAINS } from './enums';
 import {
     optionalProtocol,
@@ -10,12 +10,13 @@ import {
     nonOptionalProtocol,
 } from './expressions';
 import validator from 'validator';
+import { BuildUrl, ExtractUser, IsValidDomain } from 'types/functions';
 
 /**
  * Returns a template-filled string based on the pattern:
  * https://www.socialMediaSite.com/username
  */
-const buildStandardURL = (domain: Social, username: string) => {
+const buildStandardURL = (username: string, domain: Social) => {
     return `https://www.${domain}.com/${username}`;
 };
 
@@ -43,8 +44,22 @@ const buildYoutubeVariantURL = (username: string) => {
     if (username.startsWith('UC') || username.startsWith('HC')) {
         return `https://www.youtube.com/channel/${username}`;
     } else {
-        return buildStandardURL('youtube', username);
+        return buildStandardURL(username, 'youtube');
     }
+};
+
+// TODO: Build spotify
+/**
+ * Interpolates the type of username to figure out which algorithm
+ * to use in returning the absolute URL. if the username begins with
+ *
+ * NOTES:
+ * There are two kinds of YouTube channel names (non-id based):
+ * - Legacy UserNames: Denoted by youtube.com/user/username
+ * - Custom Channel Names: Denoted by youtube.com/c/customChannelName
+ */
+const buildSpotifyVariantURL = (id: string, linkType: SpotifyLink) => {
+    return 'todo';
 };
 
 /**
@@ -52,7 +67,7 @@ const buildYoutubeVariantURL = (username: string) => {
  * a social media site. for example, if given 'username' and 'facebook' the output
  * will be 'https://www.facebook.com/username'
  */
-const buildUrl = (username: string, type: Social) => {
+const buildUrl: BuildUrl = (username: string, type: Social, linkType?: SpotifyLink) => {
     if (!username) {
         return '';
     }
@@ -74,11 +89,14 @@ const buildUrl = (username: string, type: Social) => {
         case ALL_SOCIAL_DOMAINS.INSTAGRAM:
         case ALL_SOCIAL_DOMAINS.TWITTER:
         case ALL_SOCIAL_DOMAINS.SOUNDCLOUD:
-            return buildStandardURL(type, noSpecialChars);
+            return buildStandardURL(noSpecialChars, type);
 
         // YouTube has variants for their urls and must be interpolated
         case ALL_SOCIAL_DOMAINS.YOUTUBE:
             return buildYoutubeVariantURL(noSpecialChars);
+        case ALL_SOCIAL_DOMAINS.SPOTIFY:
+            // TODO:
+            return buildSpotifyVariantURL(username, linkType);
         default:
             // Signifies that we do not accomodate this type of domain.
             return '';
@@ -88,7 +106,7 @@ const buildUrl = (username: string, type: Social) => {
 /**
  * Validates that a url string is from a valid domain.
  */
-const isValidDomain = (input: string) => {
+const isValidDomain: IsValidDomain = (input) => {
     const supportedDomainRegex = new RegExp(allSupportedDomains, 'gmi');
 
     if (supportedDomainRegex.exec(input) !== null) {
@@ -179,7 +197,7 @@ const parseOutURLPrefix = (str: string, singleOperation: boolean) => {
  * Attempts to extract the username from a social media url by parsing out
  * social media url prefixes and blacklisted characters
  */
-const extractUser = (url: string, singleOperation = false) => {
+const extractUser: ExtractUser = (url, singleOperation = false) => {
     // if no url is supplied we return an empty string.
     if (!url) {
         return '';
