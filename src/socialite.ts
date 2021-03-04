@@ -1,5 +1,5 @@
 import { isSupportedSocial, Social, SpotifyLink } from './types/socials';
-import { ALL_SOCIAL_DOMAINS } from './enums';
+import { ALL_SOCIALS } from './enums';
 import {
     optionalProtocol,
     optionalWWW,
@@ -8,6 +8,7 @@ import {
     allSupportedDomains,
     nonOptionalWWW,
     nonOptionalProtocol,
+    validSpotifyId,
 } from './expressions';
 import validator from 'validator';
 import { BuildUrl, ExtractUser, IsValidDomain } from 'types/functions';
@@ -48,18 +49,17 @@ const buildYoutubeVariantURL = (username: string) => {
     }
 };
 
-// TODO: Build spotify
 /**
+ // TODO: Build spotify docs/comments
  * Interpolates the type of username to figure out which algorithm
  * to use in returning the absolute URL. if the username begins with
- *
- * NOTES:
- * There are two kinds of YouTube channel names (non-id based):
- * - Legacy UserNames: Denoted by youtube.com/user/username
- * - Custom Channel Names: Denoted by youtube.com/c/customChannelName
  */
 const buildSpotifyVariantURL = (id: string, linkType: SpotifyLink) => {
-    return 'todo';
+    // If not a user link, check for a valid id
+    if (linkType !== 'user' && !id.match(validSpotifyId)) {
+        return '';
+    }
+    return `https://open.spotify.com/${linkType}/${id}`;
 };
 
 /**
@@ -85,20 +85,20 @@ const buildUrl: BuildUrl = (username: string, type: Social, linkType?: SpotifyLi
     // absolute url
     switch (type) {
         // All of these domain follow the same standard URL pattern
-        case ALL_SOCIAL_DOMAINS.FACEBOOK:
-        case ALL_SOCIAL_DOMAINS.INSTAGRAM:
-        case ALL_SOCIAL_DOMAINS.TWITTER:
-        case ALL_SOCIAL_DOMAINS.SOUNDCLOUD:
+        case ALL_SOCIALS.FACEBOOK:
+        case ALL_SOCIALS.INSTAGRAM:
+        case ALL_SOCIALS.TWITTER:
+        case ALL_SOCIALS.SOUNDCLOUD:
             return buildStandardURL(noSpecialChars, type);
 
         // YouTube has variants for their urls and must be interpolated
-        case ALL_SOCIAL_DOMAINS.YOUTUBE:
+        case ALL_SOCIALS.YOUTUBE:
             return buildYoutubeVariantURL(noSpecialChars);
-        case ALL_SOCIAL_DOMAINS.SPOTIFY:
-            // TODO:
+        // Spotify has many variants for content and urls, so a linkType must be specified
+        case ALL_SOCIALS.SPOTIFY:
             return buildSpotifyVariantURL(username, linkType);
         default:
-            // Signifies that we do not accomodate this type of domain.
+            // Signifies that we do not accommodate this type of domain.
             return '';
     }
 };
@@ -149,7 +149,7 @@ const getUnique = (rawStr: string, delimiter = '<') => {
  * instances such as https://www.youtube.com/userhttps://www.youtube.com/user
  *
  * - multi-operation: Will build regular expressions in smaller chunks to parse out url-like
- * properties in stages. This operation has a broader scope and can accomodate more
+ * properties in stages. This operation has a broader scope and can accommodate more
  * use-cases with the trade-off of potential performance hits.
  */
 const parseOutURLPrefix = (str: string, singleOperation: boolean) => {

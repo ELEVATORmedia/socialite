@@ -1,4 +1,4 @@
-import { ALL_SOCIAL_DOMAINS, STANDARD_SOCIAL_DOMAINS } from './enums';
+import { ALL_SUPPORTED_DOMAINS, STANDARD_SOCIAL_DOMAINS } from './enums';
 
 // Matches https:// or http:// if available
 
@@ -17,9 +17,9 @@ const standardSocialPrefix = `((${Object.values(STANDARD_SOCIAL_DOMAINS).join(
     '|',
 )})\\.com\/)`; // eslint-disable-line no-useless-escape
 
-// Matches on any domain that takes the pattern {socialMediaSite.com}
+// Matches on any supported domain
 // No forward slash
-const allSupportedDomains = `((${Object.values(ALL_SOCIAL_DOMAINS).join('|')})\\.com)`;
+const allSupportedDomains = `((${Object.values(ALL_SUPPORTED_DOMAINS).join('|')})\\.com)`;
 
 /*
     Youtube userVariation:
@@ -55,7 +55,7 @@ const specialCharacters = '@+';
 const spotifyPrefix = `((open.|play.)spotify.com\/(artist|user|track|playlist)\/)`;
 
 // Can't verify it's always 10-22 (i.e. doesn't specify in docs), but most are 22 or 10
-const spotifyId = `([0-9A-Za-z]{10,30})`;
+const validSpotifyId = `^\([0-9A-Za-z]{10,30})$`;
 
 /**
  * Merge the standard domain pattern to the more complex youtube & spotify patterns to generate
@@ -67,12 +67,10 @@ export {
     optionalProtocol,
     optionalWWW,
     specialCharacters,
-    standardSocialPrefix,
-    youtubeSocialPrefix,
     socialPrefix,
     nonOptionalWWW,
     allSupportedDomains,
     nonOptionalProtocol,
     spotifyPrefix,
-    spotifyId,
+    validSpotifyId,
 };

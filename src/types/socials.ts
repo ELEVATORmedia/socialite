@@ -1,4 +1,4 @@
-import { ALL_SOCIAL_DOMAINS } from '../enums';
+import { ALL_SOCIALS } from '../enums';
 
 export type Social =
     | 'facebook'
@@ -9,7 +9,7 @@ export type Social =
     | 'spotify';
 
 export const isSupportedSocial = (key: string): key is Social =>
-    Object.values(ALL_SOCIAL_DOMAINS as Record<string, string>).includes(key);
+    Object.values(ALL_SOCIALS as Record<string, string>).includes(key);
 
 export type SocialsUpperCase =
     | 'FACEBOOK'
