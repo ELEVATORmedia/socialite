@@ -8,9 +8,6 @@ export type Social =
     | 'youtube'
     | 'spotify';
 
-export const isSupportedSocial = (key: string): key is Social =>
-    Object.values(ALL_SOCIALS as Record<string, string>).includes(key);
-
 export type SocialsUpperCase =
     | 'FACEBOOK'
     | 'INSTAGRAM'
@@ -20,3 +17,9 @@ export type SocialsUpperCase =
     | 'SPOTIFY';
 
 export type SpotifyLink = 'artist' | 'user' | 'track' | 'playlist';
+
+export const isSupportedSocial = (key: string): key is Social =>
+    Object.values(ALL_SOCIALS as Record<string, string>).includes(key);
+
+export const isValidSpotifyLink = (key: string): key is SpotifyLink =>
+    ['artist', 'user', 'track', 'playlist'].includes(key);

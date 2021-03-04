@@ -1,4 +1,9 @@
-import { isSupportedSocial, Social, SpotifyLink } from './types/socials';
+import {
+    isSupportedSocial,
+    isValidSpotifyLink,
+    Social,
+    SpotifyLink,
+} from './types/socials';
 import { ALL_SOCIALS } from './enums';
 import {
     optionalProtocol,
@@ -55,10 +60,15 @@ const buildYoutubeVariantURL = (username: string) => {
  * to use in returning the absolute URL. if the username begins with
  */
 const buildSpotifyVariantURL = (id: string, linkType: SpotifyLink) => {
+    // Check for valid link type
     // If not a user link, check for a valid id
-    if (linkType !== 'user' && !id.match(validSpotifyId)) {
+    if (
+        !isValidSpotifyLink(linkType) ||
+        (linkType !== 'user' && !id.match(validSpotifyId))
+    ) {
         return '';
     }
+    // Url can not contain 'www'
     return `https://open.spotify.com/${linkType}/${id}`;
 };
 
