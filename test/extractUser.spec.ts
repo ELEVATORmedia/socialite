@@ -1,10 +1,9 @@
 import { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } from './test-enums';
-import { ALL_SOCIALS } from '../src/enums';
 import assert from 'assert';
-import socialite, { Social, SpotifyLink } from '../src';
+import { extractUser } from '../src';
 import testUtils from './utils';
 
-describe('socialite.extractUser(url, singleOperation=false)', () => {
+describe('extractUser(url, singleOperation=false)', () => {
     describe('FACEBOOK urls', () => {
         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
@@ -15,7 +14,7 @@ describe('socialite.extractUser(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = socialite.extractUser(test.args[0]);
+                        const extractedUsername = extractUser(test.args[0]);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -34,7 +33,7 @@ describe('socialite.extractUser(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = socialite.extractUser(test.args[0]);
+                        const extractedUsername = extractUser(test.args[0]);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -53,7 +52,7 @@ describe('socialite.extractUser(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = socialite.extractUser(test.args[0]);
+                        const extractedUsername = extractUser(test.args[0]);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -72,7 +71,7 @@ describe('socialite.extractUser(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = socialite.extractUser(test.args[0]);
+                        const extractedUsername = extractUser(test.args[0]);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -91,7 +90,7 @@ describe('socialite.extractUser(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = socialite.extractUser(test.args[0]);
+                        const extractedUsername = extractUser(test.args[0]);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -110,7 +109,7 @@ describe('socialite.extractUser(url, singleOperation=false)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = socialite.extractUser(test.args[0]);
+                        const extractedUsername = extractUser(test.args[0]);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -124,7 +123,7 @@ describe('socialite.extractUser(url, singleOperation=false)', () => {
     });
 });
 
-describe('socialite.extractUser(url, singleOperation=true)', () => {
+describe('extractUser, singleOperation)', () => {
     describe('FACEBOOK urls', () => {
         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
@@ -135,10 +134,7 @@ describe('socialite.extractUser(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = socialite.extractUser(
-                            test.args[0],
-                            true,
-                        );
+                        const extractedUsername = extractUser(test.args[0], true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -157,10 +153,7 @@ describe('socialite.extractUser(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = socialite.extractUser(
-                            test.args[0],
-                            true,
-                        );
+                        const extractedUsername = extractUser(test.args[0], true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -179,10 +172,7 @@ describe('socialite.extractUser(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = socialite.extractUser(
-                            test.args[0],
-                            true,
-                        );
+                        const extractedUsername = extractUser(test.args[0], true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -201,10 +191,7 @@ describe('socialite.extractUser(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = socialite.extractUser(
-                            test.args[0],
-                            true,
-                        );
+                        const extractedUsername = extractUser(test.args[0], true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -223,10 +210,7 @@ describe('socialite.extractUser(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = socialite.extractUser(
-                            test.args[0],
-                            true,
-                        );
+                        const extractedUsername = extractUser(test.args[0], true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -245,10 +229,7 @@ describe('socialite.extractUser(url, singleOperation=true)', () => {
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
-                        const extractedUsername = socialite.extractUser(
-                            test.args[0],
-                            true,
-                        );
+                        const extractedUsername = extractUser(test.args[0], true);
 
                         assert.strictEqual(extractedUsername, test.expected);
                     });
@@ -259,61 +240,5 @@ describe('socialite.extractUser(url, singleOperation=true)', () => {
 
     describe('SPOTIFY variant urls', () => {
         // TODO
-    });
-});
-
-describe('socialite.buildUrl(username, type, linkType?)', () => {
-    (Object.keys(ALL_SOCIALS) as Social[]).forEach((key: Social) => {
-        describe(`Build ${key} urls`, () => {
-            var testCases = testUtils.getBuildUrlTestCase('myUser', key);
-
-            testCases.forEach((test) => {
-                it(testUtils.getDescription(test), () => {
-                    let builtUrl = '';
-                    if (key === 'spotify') {
-                        socialite.buildUrl(
-                            test.args[0],
-                            key,
-                            test.args[1] as SpotifyLink,
-                        );
-                    } else {
-                        builtUrl = socialite.buildUrl(test.args[0], key);
-                    }
-                    assert.strictEqual(builtUrl, test.expected);
-                });
-            });
-        });
-    });
-});
-
-describe('socialite.isValidDomain(url)', () => {
-    describe('valid domains', () => {
-        [
-            'facebook.com',
-            'instagram.com',
-            'twitter.com',
-            'soundcloud.com',
-            'youtube.com',
-            'open.spotify.com',
-            'play.spotify.com',
-        ].forEach((domain) => {
-            it(`${domain} should be a valid domain`, () => {
-                assert.strictEqual(socialite.isValidDomain(domain), true);
-            });
-        });
-    });
-
-    describe('invalid domains', () => {
-        [
-            'totallyLegit.com',
-            'google.com',
-            'bing.com',
-            'notEvenADomain',
-            'spotify.com',
-        ].forEach((domain) => {
-            it(`${domain} should be an invalid domain`, () => {
-                assert.strictEqual(socialite.isValidDomain(domain), false);
-            });
-        });
     });
 });

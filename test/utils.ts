@@ -245,7 +245,52 @@ const getBuildUrlTestCase = (username = 'myUser', type: Social) => {
             });
             break;
         case ALL_SOCIALS.SPOTIFY:
-        // TODO:
+            // Test requires multiple args
+            // [0]: Username/Id
+            // [1]: Spotify Link Type
+            const spotifyDomainPrefix = `https://open.spotify.com/`;
+            const spotifyId = '31jkZXTNwXu0QNvAIG4psQ';
+            // Artist
+            tests.push({
+                args: [spotifyId, 'artist'],
+                expected: `${spotifyDomainPrefix}artist/${spotifyId}`,
+            });
+            tests.push({
+                args: [username, 'artist'],
+                expected: '',
+            });
+            // User
+            tests.push({
+                args: [username, 'user'],
+                expected: `${spotifyDomainPrefix}user/${username}`,
+            });
+            // Track
+            tests.push({
+                args: [spotifyId, 'track'],
+                expected: `${spotifyDomainPrefix}track/${spotifyId}`,
+            });
+            tests.push({
+                args: [username, 'track'],
+                expected: '',
+            });
+            // Playlist
+            tests.push({
+                args: [spotifyId, 'playlist'],
+                expected: `${spotifyDomainPrefix}playlist/${spotifyId}`,
+            });
+            tests.push({
+                args: [username, 'playlist'],
+                expected: '',
+            });
+            tests.push({
+                args: ['', ''],
+                expected: '',
+            });
+            tests.push({
+                args: [spotifyId, 'invalidType'],
+                expected: '',
+            });
+            break;
         default:
             break;
     }
