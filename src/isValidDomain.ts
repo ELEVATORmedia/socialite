@@ -8,8 +8,10 @@ const isValidDomain: IsValidDomain = (input) => {
     if (!isSupportedDomain(input)) {
         return false;
     }
-    // TODO: Check duplicate and other edge cases
-    return false;
+    // TODO: Check other cases
+    // - Duplicate
+    // - www. or missing open/play for spotify
+    return true;
 };
 
 export const isSupportedDomain: IsValidDomain = (input) => {
