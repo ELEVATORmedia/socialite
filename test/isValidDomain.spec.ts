@@ -24,7 +24,11 @@ describe('isValidDomain(url)', () => {
             'google.com',
             'bing.com',
             'notEvenADomain',
-            'spotify.com',
+            // TODO:
+            // 'twitter .com',
+            // 'spotify.com',
+            // 'www.open.spotify.com',
+            // 'youtube.com/@myUseryoutube.com/@myUser',
         ].forEach((domain) => {
             it(`${domain} should be an invalid domain`, () => {
                 assert.strictEqual(isValidDomain(domain), false);

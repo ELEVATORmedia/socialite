@@ -27,11 +27,12 @@ const getDescription = ({ args, expected }: TestCase) => {
  * @param {*} defaultUser  - expected user to use in test case.
  */
 const getExtractUsernameTestCase = (
-    site: string,
+    site: Social,
     testType: string,
     defaultUser = 'myUser',
 ) => {
     const tests: TestCase[] = [];
+    const spotifyDomainPrefix = `https://open.spotify.com/`;
 
     switch (testType) {
         case STANDARD_TEST_TYPES.ABSOLUTE_URLS:
@@ -100,7 +101,7 @@ const getExtractUsernameTestCase = (
         case STANDARD_TEST_TYPES.USERNAME_ONLY:
             tests.push({
                 args: [defaultUser],
-                expected: defaultUser,
+                expected: '',
             });
             break;
         case STANDARD_TEST_TYPES.SPACES:
@@ -175,14 +176,55 @@ const getExtractUsernameTestCase = (
                 expected: defaultUser,
             });
             break;
+        // TODO:
+        case SPOTIFY_ONLY_TEST_TYPES.STANDARD:
+            tests.push({
+                args: [`https://spotify.com/user/${defaultUser}/`],
+                expected: defaultUser,
+            });
+            tests.push({
+                args: [`spotify.com/user/${defaultUser}`],
+                expected: defaultUser,
+            });
+            tests.push({
+                args: [
+                    `https://spotify.com/user/${defaultUser}/spotify.com/user/${defaultUser}`,
+                ],
+                expected: defaultUser,
+            });
+            tests.push({
+                args: [`https://spotify.com/artist/${defaultUser}`],
+                expected: defaultUser,
+            });
+            tests.push({
+                args: [`https://www.open.spotify.com/artist/${defaultUser}`],
+                expected: defaultUser,
+            });
+            break;
         case SPOTIFY_ONLY_TEST_TYPES.USER:
-        // TODO:
+            tests.push({
+                args: [`${spotifyDomainPrefix}user/${defaultUser}`],
+                expected: defaultUser,
+            });
+            break;
         case SPOTIFY_ONLY_TEST_TYPES.ARTIST:
-        // TODO:
+            tests.push({
+                args: [`${spotifyDomainPrefix}artist/${defaultUser}`],
+                expected: defaultUser,
+            });
+            break;
         case SPOTIFY_ONLY_TEST_TYPES.TRACK:
-        // TODO:
+            tests.push({
+                args: [`${spotifyDomainPrefix}track/${defaultUser}`],
+                expected: defaultUser,
+            });
+            break;
         case SPOTIFY_ONLY_TEST_TYPES.PLAYLIST:
-        // TODO:
+            tests.push({
+                args: [`${spotifyDomainPrefix}playlist/${defaultUser}`],
+                expected: defaultUser,
+            });
+            break;
         default:
             break;
     }

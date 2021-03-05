@@ -1,4 +1,4 @@
-import { ALL_SUPPORTED_DOMAINS, STANDARD_SOCIAL_DOMAINS } from './enums';
+import { ALL_SOCIALS, STANDARD_SOCIAL_DOMAINS } from './enums';
 
 // Matches https:// or http:// if available
 
@@ -19,7 +19,9 @@ const standardSocialPrefix = `((${Object.values(STANDARD_SOCIAL_DOMAINS).join(
 
 // Matches on any supported domain
 // No forward slash
-const allSupportedDomains = `((${Object.values(ALL_SUPPORTED_DOMAINS).join('|')})\\.com)`;
+const allSupportedDomains = `((${Object.values(ALL_SOCIALS).join('|')})\\.com)`;
+
+// TODO: All valid domains
 
 /*
     Youtube userVariation:
@@ -34,7 +36,7 @@ const allSupportedDomains = `((${Object.values(ALL_SUPPORTED_DOMAINS).join('|')}
 const youtubeSocialPrefix = `((youtube\\.com\/)((c|user|channel)\/)?)`;
 
 // Parse out one ore more instances of special characters
-const specialCharacters = '@+';
+const specialCharacters = '@|/+';
 
 /*
     Spotify linkVariations:
@@ -52,7 +54,7 @@ const specialCharacters = '@+';
 */
 // Spotify URL handling
 // eslint-disable-next-line no-useless-escape
-const spotifyPrefix = `((open.|play.)spotify.com\/(artist|user|track|playlist)\/)`;
+const spotifyPrefix = `(((open.|play.)?)spotify.com\/(artist|user|track|playlist)\/)`;
 
 // Can't verify it's always 10-22 (i.e. doesn't specify in docs), but most are 22 or 10
 const validSpotifyId = `^\([0-9A-Za-z]{10,30})$`;

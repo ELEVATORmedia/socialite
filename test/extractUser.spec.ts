@@ -1,9 +1,13 @@
-import { STANDARD_TEST_TYPES, YOUTUBE_ONLY_TEST_TYPES } from './test-enums';
+import {
+    SPOTIFY_ONLY_TEST_TYPES,
+    STANDARD_TEST_TYPES,
+    YOUTUBE_ONLY_TEST_TYPES,
+} from './test-enums';
 import assert from 'assert';
 import { extractUser } from '../src';
 import testUtils from './utils';
 
-describe('extractUser(url, singleOperation=false)', () => {
+describe('extractUser(url, singleOperation = false)', () => {
     describe('FACEBOOK urls', () => {
         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
@@ -11,18 +15,15 @@ describe('extractUser(url, singleOperation=false)', () => {
                     'facebook',
                     STANDARD_TEST_TYPES[key],
                 );
-
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
                         const extractedUsername = extractUser(test.args[0]);
-
                         assert.strictEqual(extractedUsername, test.expected);
                     });
                 });
             });
         });
     });
-
     describe('INSTAGRAM urls', () => {
         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
@@ -30,18 +31,15 @@ describe('extractUser(url, singleOperation=false)', () => {
                     'instagram',
                     STANDARD_TEST_TYPES[key],
                 );
-
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
                         const extractedUsername = extractUser(test.args[0]);
-
                         assert.strictEqual(extractedUsername, test.expected);
                     });
                 });
             });
         });
     });
-
     describe('TWITTER urls', () => {
         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
@@ -49,18 +47,15 @@ describe('extractUser(url, singleOperation=false)', () => {
                     'twitter',
                     STANDARD_TEST_TYPES[key],
                 );
-
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
                         const extractedUsername = extractUser(test.args[0]);
-
                         assert.strictEqual(extractedUsername, test.expected);
                     });
                 });
             });
         });
     });
-
     describe('SOUNDCLOUD urls', () => {
         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
@@ -68,18 +63,15 @@ describe('extractUser(url, singleOperation=false)', () => {
                     'soundcloud',
                     STANDARD_TEST_TYPES[key],
                 );
-
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
                         const extractedUsername = extractUser(test.args[0]);
-
                         assert.strictEqual(extractedUsername, test.expected);
                     });
                 });
             });
         });
     });
-
     describe('YOUTUBE standard urls ("youtube.com/username")', () => {
         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
             describe(STANDARD_TEST_TYPES[key], () => {
@@ -87,6 +79,40 @@ describe('extractUser(url, singleOperation=false)', () => {
                     'youtube',
                     STANDARD_TEST_TYPES[key],
                 );
+                testCases.forEach((test) => {
+                    it(testUtils.getDescription(test), () => {
+                        const extractedUsername = extractUser(test.args[0]);
+                        assert.strictEqual(extractedUsername, test.expected);
+                    });
+                });
+            });
+        });
+    });
+    describe('YOUTUBE variant urls ("youtube.com/c/", "youtube.com/channel", "youtube.com/user/)', () => {
+        Object.keys(YOUTUBE_ONLY_TEST_TYPES).forEach((key) => {
+            describe(YOUTUBE_ONLY_TEST_TYPES[key], () => {
+                var testCases = testUtils.getExtractUsernameTestCase(
+                    'youtube',
+                    YOUTUBE_ONLY_TEST_TYPES[key],
+                );
+                testCases.forEach((test) => {
+                    it(testUtils.getDescription(test), () => {
+                        const extractedUsername = extractUser(test.args[0]);
+                        assert.strictEqual(extractedUsername, test.expected);
+                    });
+                });
+            });
+        });
+    });
+    describe('SPOTIFY variant urls', () => {
+        const spotifyId = '31jkZXTNwXu0QNvAIG4psQ';
+        Object.keys(SPOTIFY_ONLY_TEST_TYPES).forEach((key) => {
+            describe(SPOTIFY_ONLY_TEST_TYPES[key], () => {
+                var testCases = testUtils.getExtractUsernameTestCase(
+                    'spotify',
+                    SPOTIFY_ONLY_TEST_TYPES[key],
+                    key !== SPOTIFY_ONLY_TEST_TYPES.USER ? spotifyId : undefined,
+                );
 
                 testCases.forEach((test) => {
                     it(testUtils.getDescription(test), () => {
@@ -98,147 +124,124 @@ describe('extractUser(url, singleOperation=false)', () => {
             });
         });
     });
-
-    describe('YOUTUBE variant urls ("youtube.com/c/", "youtube.com/channel", "youtube.com/user/)', () => {
-        Object.keys(YOUTUBE_ONLY_TEST_TYPES).forEach((key) => {
-            describe(YOUTUBE_ONLY_TEST_TYPES[key], () => {
-                var testCases = testUtils.getExtractUsernameTestCase(
-                    'youtube',
-                    YOUTUBE_ONLY_TEST_TYPES[key],
-                );
-
-                testCases.forEach((test) => {
-                    it(testUtils.getDescription(test), () => {
-                        const extractedUsername = extractUser(test.args[0]);
-
-                        assert.strictEqual(extractedUsername, test.expected);
-                    });
-                });
-            });
-        });
-    });
-
-    describe('SPOTIFY variant urls', () => {
-        // TODO
-    });
 });
 
-describe('extractUser, singleOperation)', () => {
-    describe('FACEBOOK urls', () => {
-        Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
-            describe(STANDARD_TEST_TYPES[key], () => {
-                var testCases = testUtils.getExtractUsernameTestCase(
-                    'facebook',
-                    STANDARD_TEST_TYPES[key],
-                );
+// describe('extractUser(url, singleOperation = true)', () => {
+//     describe('FACEBOOK urls', () => {
+//         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
+//             describe(STANDARD_TEST_TYPES[key], () => {
+//                 var testCases = testUtils.getExtractUsernameTestCase(
+//                     'facebook',
+//                     STANDARD_TEST_TYPES[key],
+//                 );
 
-                testCases.forEach((test) => {
-                    it(testUtils.getDescription(test), () => {
-                        const extractedUsername = extractUser(test.args[0], true);
+//                 testCases.forEach((test) => {
+//                     it(testUtils.getDescription(test), () => {
+//                         const extractedUsername = extractUser(test.args[0], true);
 
-                        assert.strictEqual(extractedUsername, test.expected);
-                    });
-                });
-            });
-        });
-    });
+//                         assert.strictEqual(extractedUsername, test.expected);
+//                     });
+//                 });
+//             });
+//         });
+//     });
 
-    describe('INSTAGRAM urls', () => {
-        Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
-            describe(STANDARD_TEST_TYPES[key], () => {
-                var testCases = testUtils.getExtractUsernameTestCase(
-                    'instagram',
-                    STANDARD_TEST_TYPES[key],
-                );
+//     describe('INSTAGRAM urls', () => {
+//         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
+//             describe(STANDARD_TEST_TYPES[key], () => {
+//                 var testCases = testUtils.getExtractUsernameTestCase(
+//                     'instagram',
+//                     STANDARD_TEST_TYPES[key],
+//                 );
 
-                testCases.forEach((test) => {
-                    it(testUtils.getDescription(test), () => {
-                        const extractedUsername = extractUser(test.args[0], true);
+//                 testCases.forEach((test) => {
+//                     it(testUtils.getDescription(test), () => {
+//                         const extractedUsername = extractUser(test.args[0], true);
 
-                        assert.strictEqual(extractedUsername, test.expected);
-                    });
-                });
-            });
-        });
-    });
+//                         assert.strictEqual(extractedUsername, test.expected);
+//                     });
+//                 });
+//             });
+//         });
+//     });
 
-    describe('TWITTER urls', () => {
-        Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
-            describe(STANDARD_TEST_TYPES[key], () => {
-                var testCases = testUtils.getExtractUsernameTestCase(
-                    'twitter',
-                    STANDARD_TEST_TYPES[key],
-                );
+//     describe('TWITTER urls', () => {
+//         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
+//             describe(STANDARD_TEST_TYPES[key], () => {
+//                 var testCases = testUtils.getExtractUsernameTestCase(
+//                     'twitter',
+//                     STANDARD_TEST_TYPES[key],
+//                 );
 
-                testCases.forEach((test) => {
-                    it(testUtils.getDescription(test), () => {
-                        const extractedUsername = extractUser(test.args[0], true);
+//                 testCases.forEach((test) => {
+//                     it(testUtils.getDescription(test), () => {
+//                         const extractedUsername = extractUser(test.args[0], true);
 
-                        assert.strictEqual(extractedUsername, test.expected);
-                    });
-                });
-            });
-        });
-    });
+//                         assert.strictEqual(extractedUsername, test.expected);
+//                     });
+//                 });
+//             });
+//         });
+//     });
 
-    describe('SOUNDCLOUD urls', () => {
-        Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
-            describe(STANDARD_TEST_TYPES[key], () => {
-                var testCases = testUtils.getExtractUsernameTestCase(
-                    'soundcloud',
-                    STANDARD_TEST_TYPES[key],
-                );
+//     describe('SOUNDCLOUD urls', () => {
+//         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
+//             describe(STANDARD_TEST_TYPES[key], () => {
+//                 var testCases = testUtils.getExtractUsernameTestCase(
+//                     'soundcloud',
+//                     STANDARD_TEST_TYPES[key],
+//                 );
 
-                testCases.forEach((test) => {
-                    it(testUtils.getDescription(test), () => {
-                        const extractedUsername = extractUser(test.args[0], true);
+//                 testCases.forEach((test) => {
+//                     it(testUtils.getDescription(test), () => {
+//                         const extractedUsername = extractUser(test.args[0], true);
 
-                        assert.strictEqual(extractedUsername, test.expected);
-                    });
-                });
-            });
-        });
-    });
+//                         assert.strictEqual(extractedUsername, test.expected);
+//                     });
+//                 });
+//             });
+//         });
+//     });
 
-    describe('YOUTUBE standard urls ("youtube.com/username")', () => {
-        Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
-            describe(STANDARD_TEST_TYPES[key], () => {
-                var testCases = testUtils.getExtractUsernameTestCase(
-                    'youtube',
-                    STANDARD_TEST_TYPES[key],
-                );
+//     describe('YOUTUBE standard urls ("youtube.com/username")', () => {
+//         Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
+//             describe(STANDARD_TEST_TYPES[key], () => {
+//                 var testCases = testUtils.getExtractUsernameTestCase(
+//                     'youtube',
+//                     STANDARD_TEST_TYPES[key],
+//                 );
 
-                testCases.forEach((test) => {
-                    it(testUtils.getDescription(test), () => {
-                        const extractedUsername = extractUser(test.args[0], true);
+//                 testCases.forEach((test) => {
+//                     it(testUtils.getDescription(test), () => {
+//                         const extractedUsername = extractUser(test.args[0], true);
 
-                        assert.strictEqual(extractedUsername, test.expected);
-                    });
-                });
-            });
-        });
-    });
+//                         assert.strictEqual(extractedUsername, test.expected);
+//                     });
+//                 });
+//             });
+//         });
+//     });
 
-    describe('YOUTUBE variant urls ("youtube.com/c/", "youtube.com/channel", "youtube.com/user/)', () => {
-        Object.keys(YOUTUBE_ONLY_TEST_TYPES).forEach((key) => {
-            describe(YOUTUBE_ONLY_TEST_TYPES[key], () => {
-                var testCases = testUtils.getExtractUsernameTestCase(
-                    'youtube',
-                    YOUTUBE_ONLY_TEST_TYPES[key],
-                );
+//     describe('YOUTUBE variant urls ("youtube.com/c/", "youtube.com/channel", "youtube.com/user/)', () => {
+//         Object.keys(YOUTUBE_ONLY_TEST_TYPES).forEach((key) => {
+//             describe(YOUTUBE_ONLY_TEST_TYPES[key], () => {
+//                 var testCases = testUtils.getExtractUsernameTestCase(
+//                     'youtube',
+//                     YOUTUBE_ONLY_TEST_TYPES[key],
+//                 );
 
-                testCases.forEach((test) => {
-                    it(testUtils.getDescription(test), () => {
-                        const extractedUsername = extractUser(test.args[0], true);
+//                 testCases.forEach((test) => {
+//                     it(testUtils.getDescription(test), () => {
+//                         const extractedUsername = extractUser(test.args[0], true);
 
-                        assert.strictEqual(extractedUsername, test.expected);
-                    });
-                });
-            });
-        });
-    });
+//                         assert.strictEqual(extractedUsername, test.expected);
+//                     });
+//                 });
+//             });
+//         });
+//     });
 
-    describe('SPOTIFY variant urls', () => {
-        // TODO
-    });
-});
+//     describe('SPOTIFY variant urls', () => {
+//         //    TODO:
+//     });
+// });

@@ -24,6 +24,7 @@ const SPOTIFY_ONLY_TEST_TYPES: Record<string, string> = {
     ARTIST: 'ARTIST',
     TRACK: 'TRACK',
     PLAYLIST: 'PLAYLIST',
+    STANDARD: 'STANDARD',
 };
 
 Object.freeze(STANDARD_TEST_TYPES);
