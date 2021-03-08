@@ -1,7 +1,6 @@
-import { ALL_SOCIALS } from '../src/enums';
 import assert from 'assert';
 import { buildUrl, Social, SpotifyLink } from '../src';
-import testUtils from './utils';
+import { getBuildUrlTestCase, getDescription } from './utils';
 
 describe('buildUrl(username, type, linkType?)', () => {
     ([
@@ -13,10 +12,10 @@ describe('buildUrl(username, type, linkType?)', () => {
         'spotify',
     ] as Social[]).forEach((key: Social) => {
         describe(`buildUrl ${key}`, () => {
-            var testCases = testUtils.getBuildUrlTestCase('myUser', key);
+            var testCases = getBuildUrlTestCase('myUser', key);
 
             testCases.forEach((test) => {
-                it(testUtils.getDescription(test), () => {
+                it(getDescription(test), () => {
                     let builtUrl = '';
                     if (key === 'spotify') {
                         builtUrl = buildUrl(

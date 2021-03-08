@@ -93,10 +93,8 @@ const buildYoutubeVariantURL = (username: string) => {
 const buildSpotifyVariantURL = (id: string, linkType: SpotifyLink) => {
     // Check for valid link type
     // If not a user link, check for a valid id
-    if (
-        !isValidSpotifyLink(linkType) ||
-        (linkType !== 'user' && !id.match(validSpotifyId))
-    ) {
+    const isValidId = new RegExp(`^(${validSpotifyId})$`, 'i');
+    if (!isValidSpotifyLink(linkType) || (linkType !== 'user' && !isValidId.test(id))) {
         return '';
     }
     // Url can not contain 'www'

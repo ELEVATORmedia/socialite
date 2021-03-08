@@ -176,7 +176,6 @@ const getExtractUsernameTestCase = (
                 expected: defaultUser,
             });
             break;
-        // TODO:
         case SPOTIFY_ONLY_TEST_TYPES.STANDARD:
             tests.push({
                 args: [`https://spotify.com/user/${defaultUser}/`],
@@ -340,8 +339,4 @@ const getBuildUrlTestCase = (username = 'myUser', type: Social) => {
     return tests;
 };
 
-export default {
-    getDescription,
-    getExtractUsernameTestCase,
-    getBuildUrlTestCase,
-};
+export { getDescription, getExtractUsernameTestCase, getBuildUrlTestCase };

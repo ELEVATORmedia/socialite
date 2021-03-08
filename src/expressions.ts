@@ -40,7 +40,7 @@ const specialCharacters = '@|/+';
 
 /*
     Spotify linkVariations:
-    Accounts for variations in user, artist, track, playlist, and legacy URLS if the matched 
+    Accounts for variations in user, artist, track, playlist, and legacy URLS if the matched
 	patterns are:
     - open.spotify.com/artist/spotifyId
     - open.spotify.com/user/spotifyId
@@ -55,9 +55,10 @@ const specialCharacters = '@|/+';
 // Spotify URL handling
 // eslint-disable-next-line no-useless-escape
 const spotifyPrefix = `(((open.|play.)?)spotify.com\/(artist|user|track|playlist)\/)`;
+const strictSpotifyPrefix = `((open.|play.)spotify.com\/(artist|user|track|playlist)\/)`;
 
 // Can't verify it's always 10-22 (i.e. doesn't specify in docs), but most are 22 or 10
-const validSpotifyId = `^\([0-9A-Za-z]{10,30})$`;
+const validSpotifyId = `[0-9A-Za-z]{10,30}`;
 
 /**
  * Merge the standard domain pattern to the more complex youtube & spotify patterns to generate
@@ -75,4 +76,6 @@ export {
     nonOptionalProtocol,
     spotifyPrefix,
     validSpotifyId,
+    youtubeSocialPrefix,
+    strictSpotifyPrefix,
 };
