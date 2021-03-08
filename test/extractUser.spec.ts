@@ -241,27 +241,6 @@ describe('extractUser(url, singleOperation = true)', () => {
         });
     });
 
-    // TODO: ??? Can we just not support single operation for spotify
-    //
-    // describe('SPOTIFY standard urls ("spotify.com/username")', () => {
-    //     Object.keys(STANDARD_TEST_TYPES).forEach((key) => {
-    //         describe(STANDARD_TEST_TYPES[key], () => {
-    //             var testCases = getExtractUsernameTestCase(
-    //                 'spotify',
-    //                 STANDARD_TEST_TYPES[key],
-    //             );
-
-    //             testCases.forEach((test) => {
-    //                 it(getDescription(test), () => {
-    //                     const extractedUsername = extractUser(test.args[0], true);
-
-    //                     assert.strictEqual(extractedUsername, test.expected);
-    //                 });
-    //             });
-    //         });
-    //     });
-    // });
-
     describe('SPOTIFY variant urls', () => {
         describe('SPOTIFY variant urls', () => {
             const spotifyId = '31jkZXTNwXu0QNvAIG4psQ';

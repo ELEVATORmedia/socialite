@@ -21,8 +21,6 @@ const standardSocialPrefix = `((${Object.values(STANDARD_SOCIAL_DOMAINS).join(
 // No forward slash
 const allSupportedDomains = `((${Object.values(ALL_SOCIALS).join('|')})\\.com)`;
 
-// TODO: All valid domains
-
 /*
     Youtube userVariation:
     Accounts for variations in user and channel name urls for legacy URLS if the previously

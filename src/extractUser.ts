@@ -67,7 +67,8 @@ const getUnique = (rawStr: string, delimiter = '<') => {
  *
  * - single operation: Will build a singular regular expression to use in parsing out
  * url-like properties. This operation has a more narrow scope and may be unable to parse out
- * instances such as https://www.youtube.com/userhttps://www.youtube.com/user
+ * instances such as https://www.youtube.com/userhttps://www.youtube.com/user. Does not
+ * support all spotify use cases
  *
  * - multi-operation: Will build regular expressions in smaller chunks to parse out url-like
  * properties in stages. This operation has a broader scope and can accommodate more

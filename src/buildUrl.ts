@@ -86,9 +86,11 @@ const buildYoutubeVariantURL = (username: string) => {
 };
 
 /**
- // TODO: Build spotify docs/comments
- * Interpolates the type of username to figure out which algorithm
- * to use in returning the absolute URL. if the username begins with
+ * Builds a spotify url of the specified `linkType`
+ *
+ * NOTES:
+ * - There are 4 types of Spotify link artist, user, track, & playlist
+ * - Besides user, all links must be valid Spotify ids or will return ''
  */
 const buildSpotifyVariantURL = (id: string, linkType: SpotifyLink) => {
     // Check for valid link type
