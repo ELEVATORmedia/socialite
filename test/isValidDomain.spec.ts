@@ -30,7 +30,7 @@ describe('isValidDomain(url)', () => {
             'bing.com',
             'notEvenADomain',
             'twitter .com',
-            'twitter.com',
+            'twitter.com/not/a/user',
             'spotify.com',
             'youtube.com',
             'www.open.spotify.com',

@@ -1,4 +1,5 @@
-export * from './buildUrl';
-export * from './extractUser';
-export * from './isValidDomain';
 export * from './types/socials';
+import buildUrl from './buildUrl';
+import extractUser from './extractUser';
+import isValidDomain from './isValidDomain';
+export { buildUrl, extractUser, isValidDomain };
