@@ -6,8 +6,8 @@ import {
     nonOptionalWWW,
     nonOptionalProtocol,
 } from './expressions';
-import { ExtractUser } from 'types/functions';
-import { isSupportedDomain } from 'isValidDomain';
+import { ExtractUser } from './types/functions';
+import { isSupportedDomain } from './isValidDomain';
 
 /**
  * Attempts to extract the username from a social media url by parsing out

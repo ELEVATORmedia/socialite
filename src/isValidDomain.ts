@@ -1,4 +1,4 @@
-import { ALL_SOCIALS } from 'enums';
+import { ALL_SOCIALS } from './enums';
 import {
     allSupportedDomains,
     optionalProtocol,
@@ -6,8 +6,8 @@ import {
     strictSpotifyPrefix,
     validSpotifyId,
     youtubeSocialPrefix,
-} from 'expressions';
-import { IsValidDomain } from 'types/functions';
+} from './expressions';
+import { IsValidDomain } from './types/functions';
 
 /**
  * Validates that a url string is from a valid domain.

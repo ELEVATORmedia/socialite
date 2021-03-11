@@ -4,7 +4,7 @@ import {
     YOUTUBE_ONLY_TEST_TYPES,
 } from './test-enums';
 import assert from 'assert';
-import { extractUser } from '../src';
+import extractUser from '../src/extractUser';
 import { getDescription, getExtractUsernameTestCase } from './utils';
 
 describe('extractUser(url, singleOperation = false)', () => {

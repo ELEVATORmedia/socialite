@@ -6,7 +6,7 @@ import {
 } from './types/socials';
 import { ALL_SOCIALS } from './enums';
 import { specialCharacters, validSpotifyId } from './expressions';
-import { BuildUrl } from 'types/functions';
+import { BuildUrl } from './types/functions';
 
 /**
  * Attempts to build an absolute url from a username and its mapped type for

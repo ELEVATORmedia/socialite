@@ -1,5 +1,6 @@
 import assert from 'assert';
-import { buildUrl, Social, SpotifyLink } from '../src';
+import buildUrl from '../src/buildUrl';
+import { Social, SpotifyLink } from '../src/types/socials';
 import { getBuildUrlTestCase, getDescription } from './utils';
 
 describe('buildUrl(username, type, linkType?)', () => {

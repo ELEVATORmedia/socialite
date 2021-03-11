@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { isValidDomain } from '../src';
+import isValidDomain from '../src/isValidDomain';
 
 describe('isValidDomain(url)', () => {
     describe('valid domains', () => {

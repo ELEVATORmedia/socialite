@@ -9,7 +9,7 @@
         "npm-publish": "npm publish --access public"
     },
     "description": "Utility package to extract social media usernames from urls and create urls from usernames",
-    "main": "dist/socialite.js",
+    "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "author": "Donald Stolz <donald.stolz@elevatormag.com>, Jesse Meza <jmeza081@gmail.com>",
     "license": "MIT",

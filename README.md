@@ -25,14 +25,14 @@ yarn add @elevatormedia/socialite
 
 ## Basic Usage
 
-This package offers a two-way set of functions `extractUser` & `buildUrl`
+This package offers three functions `extractUser`, `buildUrl`, & `isValidUrl`
 
 ### extractUser
 
 To extract a username from a social media url:
 
 ```js
-import socialite from 'socialite';
+import socialite from '@elevatormedia/socialite';
 
 const rawURL = 'https://www.twitter.com/myUser';
 
@@ -46,7 +46,7 @@ The above will output `myUser`;
 To retrieve the absolute URL from a given username and `type` (e.g., facebook, instagram, twitter):
 
 ```js
-import socialite from 'socialite';
+import socialite from '@elevatormedia/socialite';
 
 const rawUsername = 'myUser';
 const type = 'facebook';
@@ -61,7 +61,7 @@ The above call will output `https://www.facebook.com/myUser`;
 To check if a given url is a valid case of a supported social type:
 
 ```js
-import socialite from 'socialite';
+import socialite from '@elevatormedia/socialite';
 
 const url = 'https://www.soundcloud.com/myUser';
 
