@@ -32,11 +32,11 @@ This package offers three functions `extractUser`, `buildUrl`, & `isValidUrl`
 To extract a username from a social media url:
 
 ```js
-import socialite from '@elevatormedia/socialite';
+import { extractUser } from '@elevatormedia/socialite';
 
 const rawURL = 'https://www.twitter.com/myUser';
 
-console.log(socialite.extractUser(rawURL));
+console.log(extractUser(rawURL));
 ```
 
 The above will output `myUser`;
@@ -46,26 +46,26 @@ The above will output `myUser`;
 To retrieve the absolute URL from a given username and `type` (e.g., facebook, instagram, twitter):
 
 ```js
-import socialite from '@elevatormedia/socialite';
+import { buildUrl } from '@elevatormedia/socialite';
 
 const rawUsername = 'myUser';
 const type = 'facebook';
 
-console.log(socialite.buildUrl(rawUsername, type));
+console.log(buildUrl(rawUsername, type));
 ```
 
 The above call will output `https://www.facebook.com/myUser`;
 
-### isValidUrl
+### isValidDomain
 
 To check if a given url is a valid case of a supported social type:
 
 ```js
-import socialite from '@elevatormedia/socialite';
+import { isValidDomain } from '@elevatormedia/socialite';
 
 const url = 'https://www.soundcloud.com/myUser';
 
-console.log(socialite.validUrl(url));
+console.log(isValidDomain(url));
 ```
 
 The above call will output `true`;

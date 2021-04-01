@@ -6,6 +6,7 @@ describe('isValidDomain(url)', () => {
         [
             'facebook.com/myUser',
             'instagram.com/myUser',
+            // 'instagram.com/user.name',
             'twitter.com/myUser',
             'soundcloud.com/myUser',
             'youtube.com/myUser',
