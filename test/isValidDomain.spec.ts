@@ -6,9 +6,12 @@ describe('isValidDomain(url)', () => {
         [
             'facebook.com/myUser',
             'instagram.com/myUser',
-            // 'instagram.com/user.name',
+            'instagram.com/user.name',
+            'instagram.com/user_name',
             'twitter.com/myUser',
+            'twitter.com/_myUser',
             'soundcloud.com/myUser',
+            'soundcloud.com/my-user',
             'youtube.com/myUser',
             'open.spotify.com/user/myUser',
             'play.spotify.com/artist/7wbpumCV5KWPutFg3Y8dnU',
