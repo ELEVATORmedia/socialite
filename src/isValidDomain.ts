@@ -50,39 +50,34 @@ export const isSupportedDomain: IsValidDomain = (input) => {
 };
 
 const isValidFacebook = (url: string) => {
-    //
     const validFacebookUrl = new RegExp(
-        `^${optionalProtocol}${optionalWWW}(facebook.com\/).{1,}$`,
+        `^${optionalProtocol}${optionalWWW}(facebook.com\/)([A-Za-z0-9_.]{1,})$`,
         'i',
     );
     return validFacebookUrl.test(url);
 };
 const isValidInstagram = (url: string) => {
-    //
     const validInstagramUrl = new RegExp(
-        `^${optionalProtocol}${optionalWWW}(instagram.com\/)\\w+$`,
+        `^${optionalProtocol}${optionalWWW}(instagram.com\/)([A-Za-z0-9_.]{1,})$`,
         'i',
     );
     return validInstagramUrl.test(url);
 };
 const isValidTwitter = (url: string) => {
-    //
     const validTwitterUrl = new RegExp(
-        `^${optionalProtocol}${optionalWWW}(twitter.com\/)\\w+$`,
+        `^${optionalProtocol}${optionalWWW}(twitter.com\/)([A-Za-z0-9_]{1,})$`,
         'i',
     );
     return validTwitterUrl.test(url);
 };
 const isValidSoundcloud = (url: string) => {
-    //
     const validSoundcloudUrl = new RegExp(
-        `^${optionalProtocol}${optionalWWW}(soundcloud.com\/)\\w+$`,
+        `^${optionalProtocol}${optionalWWW}(soundcloud.com\/)([A-Za-z0-9_.-]{1,})$`,
         'i',
     );
     return validSoundcloudUrl.test(url);
 };
 const isValidYoutube = (url: string) => {
-    //
     const validYoutubeUrl = new RegExp(
         `^${optionalProtocol}${optionalWWW}${youtubeSocialPrefix}\\w+$`,
         'i',
