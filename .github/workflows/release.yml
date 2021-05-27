@@ -47,22 +47,26 @@ jobs:
               with:
                   path: src
                   key: 14.6.x-${{ runner.OS }}-build-${{ hashFiles('src/*') }}
-            # - name: Automated Version Bump
-            #   id: version-bump
-            #   if: steps.cache-src.outputs.cache-hit != 'true'
-            #   uses: 'phips28/gh-action-bump-version@master'
-            #   env:
-            #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            # - name: Build
-            #   if: steps.cache-src.outputs.cache-hit != 'true'
-            #   run: yarn tsc
-            # - name: Publish NPM
-            #   if: steps.cache-src.outputs.cache-hit != 'true'
-            #   run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}" && npm publish --access public
-            #   env:
-            #       NPM_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
-            # - name: Publish GitHub
-            #   if: steps.cache-src.outputs.cache-hit != 'true'
-            #   run: npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}" && npm publish --access public
-            #   env:
-            #       GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+            - name: Automated Version Bump
+              id: version-bump
+              if: steps.cache-src.outputs.cache-hit != 'true'
+              uses: 'phips28/gh-action-bump-version@master'
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Build
+              if: steps.cache-src.outputs.cache-hit != 'true'
+              run: yarn tsc
+
+            - name: Publish NPM
+              if: steps.cache-src.outputs.cache-hit != 'true'
+              run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}" && npm publish --access public
+              env:
+                  NPM_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
+
+            - name: Publish GitHub
+              if: steps.cache-src.outputs.cache-hit != 'true'
+              run: npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}" && npm publish --access public
+              env:
+                  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
