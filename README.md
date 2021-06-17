@@ -68,7 +68,7 @@ const url = 'https://www.soundcloud.com/myUser';
 console.log(isValidDomain(url));
 ```
 
-The above call will output `true`;
+The above call will output `true`
 
 ## Full Documentation & Contributing
 
