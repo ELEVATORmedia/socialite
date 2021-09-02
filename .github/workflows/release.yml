@@ -3,7 +3,7 @@ name: Update Release CI
 
 # Controls when the action will run.
 on:
-    pull_request
+    push
     # Triggers the workflow on push but only for the master branch
 
 jobs:
@@ -18,9 +18,10 @@ jobs:
         # 3. Check src cache; Skip Remaining if no changes
         # 4. Bump version
         # 5. Build Code
-        # 6. Publish Package
+        # 6. Publish to GitHub
+        # 7. Publish to NPM
         steps:
-            - name: Checkout Source Code
+            - name: 'Checkout Source Code'
               uses: actions/checkout@v2
               with:
                   ref: ${{ github.ref }}
@@ -61,27 +62,13 @@ jobs:
               if: steps.cache-src.outputs.cache-hit != 'true'
               run: yarn tsc
 
-            # https://docs.github.com/en/actions/guides/publishing-nodejs-packages#publishing-packages-to-npm-and-github-packages
-            # Setup .npmrc file to publish to npm
-            - name: Publish NPM
-              if: steps.cache-src.outputs.cache-hit != 'true'
-              uses: actions/setup-node@v2
-              with:
-                  node-version: '12.x'
-                  registry-url: 'https://registry.npmjs.org'
-              # Publish to npm
-              run: cat .npmrc #npm publish --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
-              # Setup .npmrc file to publish to GitHub Packages
             - name: Publish GitHub
               if: steps.cache-src.outputs.cache-hit != 'true'
-              uses: actions/setup-node@v2
-              with:
-                  registry-url: 'https://npm.pkg.github.com'
-                  # Defaults to the user or organization that owns the workflow file
-                  scope: '@elevatormedia'
-              # Publish to GitHub Packages
-              run: npm publish
+              run: npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}" && npm publish --access public
               env:
-                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+            # - name: Publish NPM
+            #   if: steps.cache-src.outputs.cache-hit != 'true'
+            #   run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}" && npm publish --access public
+            #   env:
+            #       NPM_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
