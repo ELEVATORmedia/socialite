@@ -56,8 +56,6 @@ jobs:
               id: version-bump
               if: steps.cache-src.outputs.cache-hit != 'true'
               uses: 'phips28/gh-action-bump-version@master'
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Publish NPM
               run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}" && npm publish --access public
@@ -65,6 +63,6 @@ jobs:
                   NPM_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
 
             - name: Publish GitHub
-              run: npm config set '//npm.pkg.github.com/:_authToken' "${GITHUB_TOKEN}" && npm publish --access public
+              run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> .npmrc && npm publish
               env:
                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
