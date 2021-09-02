@@ -28,10 +28,10 @@ jobs:
 
             - name: Cache node_modules
               id: cache-modules
-              uses: actions/cache@v1
+              uses: actions/cache@v2
               with:
                   path: node_modules
-                  key: 12.x-${{ runner.OS }}-build-${{ hashFiles('package.json') }}
+                  key: 14.6.x-${{ runner.OS }}-build-${{ hashFiles('package.json') }}
 
             - name: Install
               if: steps.cache-modules.outputs.cache-hit != 'true'
@@ -42,7 +42,7 @@ jobs:
 
             - name: Cache src
               id: cache-src
-              uses: actions/cache@v1
+              uses: actions/cache@v2
               with:
                   path: src
                   key: 14.6.x-${{ runner.OS }}-build-${{ hashFiles('src/*') }}
@@ -61,21 +61,24 @@ jobs:
             - name: Build
               if: steps.cache-src.outputs.cache-hit != 'true'
               run: yarn tsc
-
-            - name: Set Up for GitHub Publish
-              uses: actions/setup-node@v2
-              with:
-                  node-version: '14.x'
-                  registry-url: 'https://npm.pkg.github.com'
-                  scope: '@elevatormedia'
-
-            - name: Publish to GitHub
-              if: steps.cache-src.outputs.cache-hit != 'true'
-              run: npm publish
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            # - name: Publish NPM
+            # - name: Set Up for GitHub Publish
+            #   uses: actions/setup-node@v2
+            #   with:
+            #       node-version: '14.x'
+            #       registry-url: 'https://npm.pkg.github.com'
+            #       scope: '@elevatormedia'
+            # - name: Publish to GitHub
             #   if: steps.cache-src.outputs.cache-hit != 'true'
-            #   run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}" && npm publish --access public
+            #   run: npm publish
             #   env:
-            #       NPM_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
+            #       NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            # - name: Set Up for NPM Publish
+            #   uses: actions/setup-node@v2
+            #   with:
+            #       node-version: '14.x'
+            #       registry-url: 'https://registry.npmjs.org'
+            # - name: Publish to NPM
+            #   if: steps.cache-src.outputs.cache-hit != 'true'
+            #   run: npm publish
+            #   env:
+            #       NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
