@@ -50,30 +50,35 @@ jobs:
             - name: Build
               if: steps.cache-src.outputs.cache-hit != 'true'
               run: yarn tsc
-            # - name: Automated Version Bump
-            #   id: version-bump
-            #   if: steps.cache-src.outputs.cache-hit != 'true'
-            #   uses: 'phips28/gh-action-bump-version@master'
-            #   env:
-            #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            # - name: Set Up for GitHub Publish
-            #   uses: actions/setup-node@v2
-            #   with:
-            #       node-version: '14.x'
-            #       registry-url: 'https://npm.pkg.github.com'
-            #       scope: '@elevatormedia'
-            # - name: Publish to GitHub
-            #   if: steps.cache-src.outputs.cache-hit != 'true'
-            #   run: npm publish
-            #   env:
-            #       NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            # - name: Set Up for NPM Publish
-            #   uses: actions/setup-node@v2
-            #   with:
-            #       node-version: '14.x'
-            #       registry-url: 'https://registry.npmjs.org'
-            # - name: Publish to NPM
-            #   if: steps.cache-src.outputs.cache-hit != 'true'
-            #   run: npm publish
-            #   env:
-            #       NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Automated Version Bump
+              id: version-bump
+              if: steps.cache-src.outputs.cache-hit != 'true'
+              uses: 'phips28/gh-action-bump-version@master'
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Set Up for GitHub Publish
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '14.x'
+                  registry-url: 'https://npm.pkg.github.com'
+                  scope: '@elevatormedia'
+
+            - name: Publish to GitHub
+              if: steps.cache-src.outputs.cache-hit != 'true'
+              run: npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Set Up for NPM Publish
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '14.x'
+                  registry-url: 'https://registry.npmjs.org'
+
+            - name: Publish to NPM
+              if: steps.cache-src.outputs.cache-hit != 'true'
+              run: npm publish --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
