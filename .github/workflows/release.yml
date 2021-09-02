@@ -78,7 +78,7 @@ jobs:
                   registry-url: 'https://registry.npmjs.org'
 
             - name: Publish to NPM
-              if: steps.cache-src.outputs.cache-hit != 'true'
+              # if: steps.cache-src.outputs.cache-hit != 'true'
               run: npm publish --access public
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
