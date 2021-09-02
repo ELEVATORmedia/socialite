@@ -21,7 +21,7 @@ jobs:
         # 6. Publish to GitHub
         # 7. Publish to NPM
         steps:
-            - name: 'Checkout Source Code'
+            - name: Checkout Source Code
               uses: actions/checkout@v2
               with:
                   ref: ${{ github.ref }}
@@ -62,14 +62,15 @@ jobs:
               if: steps.cache-src.outputs.cache-hit != 'true'
               run: yarn tsc
 
-            - name: Publish GitHub
-              if: steps.cache-src.outputs.cache-hit != 'true'
+            - name: Set Up for GitHub Publish
               uses: actions/setup-node@v2
               with:
                   node-version: '14.x'
                   registry-url: 'https://npm.pkg.github.com'
-                  # Defaults to the user or organization that owns the workflow file
                   scope: '@elevatormedia'
+
+            - name: Publish to GitHub
+              if: steps.cache-src.outputs.cache-hit != 'true'
               run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
