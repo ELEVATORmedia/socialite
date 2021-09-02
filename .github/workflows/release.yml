@@ -50,17 +50,12 @@ jobs:
             - name: Build
               if: steps.cache-src.outputs.cache-hit != 'true'
               run: yarn tsc
-
             # - name: Automated Version Bump
             #   id: version-bump
             #   if: steps.cache-src.outputs.cache-hit != 'true'
             #   uses: 'phips28/gh-action-bump-version@master'
             #   env:
             #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-            - name: Build
-              if: steps.cache-src.outputs.cache-hit != 'true'
-              run: yarn tsc
             # - name: Set Up for GitHub Publish
             #   uses: actions/setup-node@v2
             #   with:
