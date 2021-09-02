@@ -3,9 +3,8 @@ name: Update Release CI
 
 # Controls when the action will run.
 on:
+    push
     # Triggers the workflow on push but only for the master branch
-    push:
-        branches: [master]
 
 jobs:
     publish:
@@ -19,8 +18,8 @@ jobs:
         # 3. Check src cache; Skip Remaining if no changes
         # 4. Bump version
         # 5. Build Code
-        # 6. Publish to NPM
-        # 7. Publish to GitHub
+        # 6. Publish to GitHub
+        # 7. Publish to NPM
         steps:
             - name: 'Checkout Source Code'
               uses: actions/checkout@v2
@@ -52,17 +51,16 @@ jobs:
               if: steps.cache-src.outputs.cache-hit != 'true'
               run: yarn tsc
 
-            - name: Automated Version Bump
-              id: version-bump
-              if: steps.cache-src.outputs.cache-hit != 'true'
-              uses: 'phips28/gh-action-bump-version@master'
-
-            - name: Publish NPM
-              run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}" && npm publish --access public
-              env:
-                  NPM_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
+            # - name: Automated Version Bump
+            #   id: version-bump
+            #   if: steps.cache-src.outputs.cache-hit != 'true'
+            #   uses: 'phips28/gh-action-bump-version@master'
 
             - name: Publish GitHub
               run: echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> .npmrc && npm publish
               env:
                   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+            # - name: Publish NPM
+            #   run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}" && npm publish --access public
+            #   env:
+            #       NPM_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
