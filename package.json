@@ -1,6 +1,6 @@
 {
     "name": "@elevatormedia/socialite",
-    "version": "1.1.6",
+    "version": "1.1.7",
     "scripts": {
         "prebuild": "rm -rf dist",
         "build": "tsc",
