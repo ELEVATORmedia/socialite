@@ -3,7 +3,7 @@ name: Update Release CI
 
 # Controls when the action will run.
 on:
-    push
+    pull_request
     # Triggers the workflow on push but only for the master branch
 
 jobs:
