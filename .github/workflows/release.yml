@@ -70,9 +70,6 @@ jobs:
             #   run: npm publish
             #   env:
             #       NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            - name: Remove GitHub .npmrc
-              run: cat .npmrc && rm .npmrc
-
             - name: Set Up for NPM Publish
               uses: actions/setup-node@v2
               with:
