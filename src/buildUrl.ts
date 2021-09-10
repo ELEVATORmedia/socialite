@@ -81,7 +81,7 @@ const buildYoutubeVariantURL = (username: string) => {
     if (username.startsWith('UC') || username.startsWith('HC')) {
         return `https://www.youtube.com/channel/${username}`;
     } else {
-        return buildStandardURL(username, 'youtube');
+        return `https://www.youtube.com/c/${username}`;
     }
 };
 

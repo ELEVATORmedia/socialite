@@ -262,7 +262,7 @@ const getBuildUrlTestCase = (username = 'myUser', type: Social) => {
         case ALL_SOCIALS.YOUTUBE:
             tests.push({
                 args: [username],
-                expected: `${domainPrefix}${username}`,
+                expected: `${domainPrefix}c/${username}`,
             });
             tests.push({
                 args: [`UC${username}`],
