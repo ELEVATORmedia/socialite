@@ -31,7 +31,7 @@ const allSupportedDomains = `((${Object.values(ALL_SOCIALS).join('|')})\\.com)`;
     - youtube.com/channel/channel_id
 */
 // eslint-disable-next-line no-useless-escape
-const youtubeSocialPrefix = `((youtube\\.com\/)((c|user|channel)\/)?)`;
+const youtubeSocialPrefix = `((youtube.com\/)((c|user|channel)\/)?)`;
 
 // Parse out one ore more instances of special characters
 const specialCharacters = '@|/+';

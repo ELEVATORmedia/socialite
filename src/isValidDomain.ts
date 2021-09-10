@@ -79,7 +79,7 @@ const isValidSoundcloud = (url: string) => {
 };
 const isValidYoutube = (url: string) => {
     const validYoutubeUrl = new RegExp(
-        `^${optionalProtocol}${optionalWWW}${youtubeSocialPrefix}\\w+$`,
+        `^${optionalProtocol}${optionalWWW}${youtubeSocialPrefix}([\\w-])+$`,
         'i',
     );
     return validYoutubeUrl.test(url);
